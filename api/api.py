@@ -4,7 +4,7 @@ import json
 import tornado.web
 import tornado.websocket
 
-import log_pull
+import log_puller
 import log_entry.parser as parser
 import log_entry.entry as entry
 from settings import site_settings
