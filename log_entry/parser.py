@@ -6,7 +6,7 @@ from log_entry import entry
 
 RE_LOG_SPLIT_PD = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+\.\w+):(\d+): \[(\w+)\]', re.M)
 RE_LOG_SPLIT_TIDB = RE_LOG_SPLIT_PD
-RE_LOG_SPLIT_TIKV = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) \w+ (\w+\.\w+|\<unknown\>):(\d+): ', re.M)
+RE_LOG_SPLIT_TIKV = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+) (\w+\.\w+|\<unknown\>):(\d+): ', re.M)
 
 RE_LOG_SPLIT_MAP = {
     entry.SOURCE_PD: RE_LOG_SPLIT_PD,
