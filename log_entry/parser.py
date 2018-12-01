@@ -17,7 +17,6 @@ RE_LOG_SPLIT_MAP = {
 RE_LOG_TAG = re.compile(r'^(\[[^]]+\] )(\[[^]]+\] )*')
 RE_LOG_TAG_KV = re.compile(r'(\w+) (\d+)')
 
-
 # RE_LOG_TAG = re.compile(r'\[([a-zA-Z]\w*)( \d+)?\]')
 #
 # def parse_tags(log_entry):
@@ -65,6 +64,24 @@ def parse_tags(log_entry):
     return log_entry
 
 
+def parse_log_level_pd_or_tidb(level):
+    return {
+        'debug':   entry.LOG_DEBUG,
+        'info':    entry.LOG_INFO,
+        'warning': entry.LOG_WARN,
+        'error':   entry.LOG_ERROR,
+        'fatal':   entry.LOG_FATAL,
+    }[level]
+
+def parse_log_level_tikv(level):
+    return {
+        'DEBU': entry.LOG_DEBUG,
+        'INFO': entry.LOG_INFO,
+        'WARN': entry.LOG_WARN,
+        'ERRO': entry.LOG_ERROR,
+        'FATA': entry.LOG_FATAL,
+    }[level]
+
 def parse_text_pd_or_tidb(text, log_type):
     RE_LOG_SPLIT = RE_LOG_SPLIT_MAP[log_type]
     text_splits = RE_LOG_SPLIT.split(text)
@@ -77,7 +94,7 @@ def parse_text_pd_or_tidb(text, log_type):
             'log_time':  text_splits[index],
             'file_name': text_splits[index+1],
             'file_line': text_splits[index+2],
-            'log_level': text_splits[index+3],
+            'log_level': parse_log_level_pd_or_tidb(text_splits[index+3]),
             'content':   text_splits[index+4].strip(),
         })
         index += 5
@@ -94,7 +111,7 @@ def parse_text_tikv(text, log_type=entry.SOURCE_TIKV):
         log_entries.append({
             'source':    log_type,
             'log_time':  text_splits[index],
-            'log_level': text_splits[index+1],
+            'log_level': parse_log_level_tikv(text_splits[index+1]),
             'file_name': text_splits[index+2],
             'file_line': text_splits[index+3],
             'content':   text_splits[index+4].strip(),

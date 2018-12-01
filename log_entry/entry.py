@@ -27,6 +27,7 @@ sample_tikv_log_entry = {
     'content': '', # 剩下的全部内容
     'region': 11, # optional
     'store': 1, # optional
+    'tags': ['store', 'region'] # optional
 }
 
 sample_tidb_log_entry = {
@@ -36,7 +37,7 @@ sample_tidb_log_entry = {
     'file_name': 'client.go',
     'file_line': 398,
     'content': '', # 剩下的全部内容
-    'tag': ['SLOW_QUERY', 'INTERNAL'] # optional
+    'tags': ['SLOW_QUERY', 'INTERNAL'] # optional
 }
 
 sample_pd_log_entry = {
@@ -47,7 +48,7 @@ sample_pd_log_entry = {
     'file_line': 398,
     'content': '', # 剩下的全部内容
     'region': 12, # optional
-    'tag': ['SLOW_QUERY', 'INTERNAL'] # optional
+    'tags': ['SLOW_QUERY', 'INTERNAL'] # optional
 }
 
 def filter_by_datetime(log_entries, begin, end):
@@ -57,7 +58,7 @@ def filter_by_date(log_entries, begin, end):
     return filter(lambda e : begin <= e['log_time'][:10] and e['log_time'][:10] < end, log_entries)
 
 def filter_by_level(log_entries, level):
-    return filter(lambda e : e['log_level'] >= LOG_DEBUG, log_entries)
+    return filter(lambda e : e['log_level'] >= level, log_entries)
 
 def filter_by_filename(log_entries, filename):
     return filter(lambda e : e['file_name'] == filename, log_entries)
@@ -92,6 +93,9 @@ def filter_log_entries(log_entries, **kw):
 
     if 'date' in kw:
         res = filter_by_date(res, kw['date'][0], kw['date'][1])
+
+    if 'level' in kw:
+        res = filter_by_level(res, kw['level'])
 
     if 'filename' in kw:
         res = filter_by_filename(res, kw['filename'])

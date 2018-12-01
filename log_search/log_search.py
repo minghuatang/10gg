@@ -32,6 +32,17 @@ def parse_args(args):
     return kw
 
 
+def log_level_str_to_int(level):
+    return {
+        'd': entry.LOG_DEBUG,
+        'i': entry.LOG_INFO,
+        'w': entry.LOG_WARN,
+        'e': entry.LOG_ERROR,
+        'f': entry.LOG_FATAL,
+        'n': entry.LOG_NULL,
+    }[level.lower()[0]]
+
+
 def main(kw):
     input_text = open(kw['input']).read()
     raw_entries = parser.parse_text(input_text, kw['log_type'])
@@ -44,6 +55,9 @@ def main(kw):
 
     if 'tags' in kw:
         kw['tags'] = kw['tags'].split(',')
+
+    if 'level' in kw:
+        kw['level'] = log_level_str_to_int(kw['level'])
 
     res = entry.filter_log_entries(raw_entries, **kw)
 
