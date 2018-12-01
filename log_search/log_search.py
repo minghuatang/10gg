@@ -33,7 +33,8 @@ def parse_args(args):
 
 
 def main(kw):
-    pprint(kw)
+    input_text = open(kw['input']).read()
+    raw_entries = parser.parse_text(input_text, kw['log_type'])
 
 
 if __name__ == '__main__':

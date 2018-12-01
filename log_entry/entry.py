@@ -2,13 +2,19 @@
 
 # 如何在内存里表示一条log
 
-
 SOURCE_TIDB = 'TIDB'
 SOURCE_TIKV = 'TIKV'
 SOURCE_PD = 'PD'
 
 SOURCE_METRIC = 'METRIC'
 SOURCE_OS = 'OS'
+
+LOG_DEBUG = 0
+LOG_INFO = 1
+LOG_WARN = 2
+LOG_ERROR = 3
+LOG_FATAL = 4
+LOG_NULL = 5
 
 # 因为map结构没有固定schema，我们可以针对一种log类型做任意扩展
 
@@ -44,17 +50,65 @@ sample_pd_log_entry = {
     'tag': ['SLOW_QUERY', 'INTERNAL'] # optional
 }
 
+def filter_by_datetime(log_entries, begin, end):
+    return filter(lambda e : begin <= e[:-4] and e[:-4] < end, log_entries)
+
+def filter_by_date(log_entries, begin, end):
+    return filter(lambda e : begin <= e[:10] and e[:10] < end, log_entries)
+
+def filter_by_level(log_entries, level):
+    return filter(lambda e : e['log_level'] >= LOG_DEBUG, log_entries)
+
+def filter_by_filename(log_entries, filename):
+    return filter(lambda e : e['file_name'] == filename, log_entries)
+
+def filter_by_tag(log_entries, tag):
+    return filter(lambda e : tag in e['tags'], log_entries)
+
+def filter_by_tags(log_entries, tags):
+    for tag in rags:
+        log_entries = filter_by_tag(log_entries, tag)
+    return log_entries
+
+def filter_by_region(log_entries, region):
+    return filter(lambda e : 'region' in e and e['region'] == region, log_entries)
+
+def filter_by_store(log_entries, store):
+    return filter(lambda e : 'store' in e and e['store'] == store, log_entries)
+
 # 如何抽取一部分 log, 大概的接口，具体实现再议
 # 1. 传入filters，按自定义的filter函数过滤
 # 2. 传入字段名称，自己判断
 def filter_log_entries(log_entries, **kw):
+    res = log_entries
 
     filters = kw['filters']
-    res = log_entries
     for f in filters:
-        res = filter(log_entries, f)
+        res = filter(f, res)
 
-    region = kw['region']
-    res = filter(log_entries, lambda log : 'region' in log and log['region'] == region)
+    if 'datetime' in kw:
+        res = filter_by_date(res, kw['datetime'][0], kw['datetime'][1])
+
+    if 'date' in kw:
+        res = filter_by_date(res, kw['date'][0], kw['date'][1])
+
+    if 'filename' in kw:
+        res = filter_by_filename(res, kw['filename'])
+
+    if 'tags' in kw:
+        res = filter_by_tags(res, kw['tags'])
+
+    if 'region' in kw:
+        res = filter_by_region(res, kw['region'])
+
+    if 'store' in kw:
+        res = filter_by_store(res, kw['store'])
 
     return res
+
+
+
+
+
+
+
