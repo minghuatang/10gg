@@ -37,7 +37,7 @@ RE_LOG_TAG_KV = re.compile(r'(\w+) (\d+)')
 #     log_entry['tags'] = tags
 #     return log_entry
 
- def parse_tags(log_entry):
+def parse_tags(log_entry):
     content = log_entry['content']
     res = RE_LOG_TAG.findall(content)
 
