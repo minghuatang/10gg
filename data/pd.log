@@ -1,0 +1,910 @@
+2018/11/30 13:24:01.616 util.go:56: [info] Welcome to Placement Driver (PD).
+2018/11/30 13:24:01.616 util.go:57: [info] Release Version: v2.1.0-rc.2-63-gc0c7b1a
+2018/11/30 13:24:01.616 util.go:58: [info] Git Commit Hash: c0c7b1a37bab0004a59b07e429948d46b5b59d6a
+2018/11/30 13:24:01.616 util.go:59: [info] Git Branch: master
+2018/11/30 13:24:01.616 util.go:60: [info] UTC Build Time:  2018-11-29 06:31:22
+2018/11/30 13:24:01.616 metricutil.go:79: [info] disable Prometheus push client
+2018/11/30 13:24:01.616 server.go:106: [info] PD config - {
+  "client-urls": "http://192.168.199.118:2379",
+  "peer-urls": "http://192.168.199.118:2380",
+  "advertise-client-urls": "http://192.168.199.118:2379",
+  "advertise-peer-urls": "http://192.168.199.118:2380",
+  "name": "pd1",
+  "data-dir": "/data/hackathon/deploy/data.pd",
+  "initial-cluster": "pd1=http://192.168.199.118:2380",
+  "initial-cluster-state": "new",
+  "join": "",
+  "lease": 3,
+  "log": {
+    "level": "info",
+    "format": "text",
+    "disable-timestamp": false,
+    "file": {
+      "filename": "/data/hackathon/deploy/log/pd.log",
+      "log-rotate": true,
+      "max-size": 300,
+      "max-days": 0,
+      "max-backups": 0
+    }
+  },
+  "log-file": "",
+  "log-level": "",
+  "tso-save-interval": "3s",
+  "metric": {
+    "job": "pd1",
+    "address": "",
+    "interval": "0s"
+  },
+  "schedule": {
+    "max-snapshot-count": 3,
+    "max-pending-peer-count": 16,
+    "max-merge-region-size": 20,
+    "max-merge-region-keys": 200000,
+    "split-merge-interval": "1h0m0s",
+    "patrol-region-interval": "100ms",
+    "max-store-down-time": "30m0s",
+    "leader-schedule-limit": 4,
+    "region-schedule-limit": 4,
+    "replica-schedule-limit": 8,
+    "merge-schedule-limit": 8,
+    "tolerant-size-ratio": 5,
+    "low-space-ratio": 0.8,
+    "high-space-ratio": 0.6,
+    "disable-raft-learner": "false",
+    "disable-remove-down-replica": "false",
+    "disable-replace-offline-replica": "false",
+    "disable-make-up-replica": "false",
+    "disable-remove-extra-replica": "false",
+    "disable-location-replacement": "false",
+    "disable-namespace-relocation": "false",
+    "schedulers-v2": [
+      {
+        "type": "balance-region",
+        "args": null,
+        "disable": false
+      },
+      {
+        "type": "balance-leader",
+        "args": null,
+        "disable": false
+      },
+      {
+        "type": "hot-region",
+        "args": null,
+        "disable": false
+      },
+      {
+        "type": "label",
+        "args": null,
+        "disable": false
+      }
+    ]
+  },
+  "replication": {
+    "max-replicas": 3,
+    "location-labels": ""
+  },
+  "namespace": {},
+  "pd-server": {
+    "use-region-storage": "false"
+  },
+  "cluster-version": "0.0.0",
+  "quota-backend-bytes": "0 B",
+  "auto-compaction-mode": "periodic",
+  "auto-compaction-retention-v2": "1h",
+  "TickInterval": "500ms",
+  "ElectionInterval": "3s",
+  "PreVote": true,
+  "security": {
+    "cacert-path": "",
+    "cert-path": "",
+    "key-path": ""
+  },
+  "label-property": null,
+  "WarningMsgs": null,
+  "namespace-classifier": "table",
+  "LeaderPriorityCheckInterval": "1m0s"
+}
+2018/11/30 13:24:01.617 server.go:138: [info] start embed etcd
+2018/11/30 13:24:01.617 systime_mon.go:24: [info] start system time monitor
+2018/11/30 13:24:01.617 log.go:88: [info] embed: [pprof is enabled under /debug/pprof]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [name = pd1]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [data dir = /data/hackathon/deploy/data.pd]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [member dir = /data/hackathon/deploy/data.pd/member]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [heartbeat = 500ms]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [election = 3000ms]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [snapshot count = 100000]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [advertise client URLs = http://192.168.199.118:2379]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [initial advertise peer URLs = http://192.168.199.118:2380]
+2018/11/30 13:24:01.663 log.go:88: [info] etcdserver: [initial cluster = pd1=http://192.168.199.118:2380]
+2018/11/30 13:24:01.748 log.go:88: [info] etcdserver: [starting member 4635dc1d53487ef1 in cluster 20f3783d161b3ee0]
+2018/11/30 13:24:01.748 raft.go:656: [info] 4635dc1d53487ef1 became follower at term 0
+2018/11/30 13:24:01.748 raft.go:364: [info] newRaft 4635dc1d53487ef1 [peers: [], term: 0, commit: 0, applied: 0, lastindex: 0, lastterm: 0]
+2018/11/30 13:24:01.748 raft.go:656: [info] 4635dc1d53487ef1 became follower at term 1
+2018/11/30 13:24:01.815 log.go:84: [warning] auth: [simple token is not cryptographically signed]
+2018/11/30 13:24:01.883 log.go:88: [info] embed: [4635dc1d53487ef1 starting with cors ["*"]]
+2018/11/30 13:24:01.884 log.go:88: [info] embed: [4635dc1d53487ef1 starting with host whitelist ["*"]]
+2018/11/30 13:24:01.884 log.go:88: [info] etcdserver: [starting server... [version: 3.3.0+git, cluster version: to_be_decided]]
+2018/11/30 13:24:01.884 log.go:88: [info] etcdserver: [4635dc1d53487ef1 as single-node; fast-forwarding 5 ticks (election ticks 6)]
+2018/11/30 13:24:01.884 log.go:88: [info] etcdserver/membership: [added member 4635dc1d53487ef1 [http://192.168.199.118:2380] to cluster 20f3783d161b3ee0]
+2018/11/30 13:24:01.885 log.go:88: [info] embed: [listening for peers on  192.168.199.118:2380]
+2018/11/30 13:24:02.748 raft.go:857: [info] 4635dc1d53487ef1 is starting a new election at term 1
+2018/11/30 13:24:02.748 raft.go:684: [info] 4635dc1d53487ef1 became pre-candidate at term 1
+2018/11/30 13:24:02.748 raft.go:755: [info] 4635dc1d53487ef1 received MsgPreVoteResp from 4635dc1d53487ef1 at term 1
+2018/11/30 13:24:02.748 raft.go:669: [info] 4635dc1d53487ef1 became candidate at term 2
+2018/11/30 13:24:02.748 raft.go:755: [info] 4635dc1d53487ef1 received MsgVoteResp from 4635dc1d53487ef1 at term 2
+2018/11/30 13:24:02.748 raft.go:712: [info] 4635dc1d53487ef1 became leader at term 2
+2018/11/30 13:24:02.748 node.go:306: [info] raft.node: 4635dc1d53487ef1 elected leader 4635dc1d53487ef1 at term 2
+2018/11/30 13:24:02.749 log.go:88: [info] etcdserver: [published {Name:pd1 ClientURLs:[http://192.168.199.118:2379]} to cluster 20f3783d161b3ee0]
+2018/11/30 13:24:02.749 log.go:88: [info] embed: [ready to serve client requests]
+2018/11/30 13:24:02.749 server.go:168: [info] create etcd v3 client with endpoints [http://192.168.199.118:2379]
+2018/11/30 13:24:02.749 log.go:88: [info] etcdserver: [setting up the initial cluster version to 3.3]
+2018/11/30 13:24:02.749 log.go:86: [info] embed: [serving insecure client requests on 192.168.199.118:2379, this is strongly discouraged!]
+2018/11/30 13:24:02.778 log.go:86: [info] etcdserver/membership: [set the initial cluster version to 3.3]
+2018/11/30 13:24:02.804 log.go:88: [info] etcdserver/api: [enabled capabilities for version 3.3]
+2018/11/30 13:24:02.804 server.go:207: [info] init cluster id 6629520143555668511
+2018/11/30 13:24:02.940 history_buffer.go:136: [warning] load history index failed: leveldb: not found
+2018/11/30 13:24:02.940 history_buffer.go:144: [info] history index start at: 0
+2018/11/30 13:24:02.940 namespace_classifier.go:438: [info] load 0 namespacesInfo cost 286.785µs
+2018/11/30 13:24:02.974 leader.go:395: [info] server disable region storage
+2018/11/30 13:24:02.974 tso.go:104: [info] sync and save timestamp: last 0001-01-01 00:00:00 +0000 UTC save 2018-11-30 13:24:05.974769097 +0800 CST m=+4.363253954 next 2018-11-30 13:24:02.974769097 +0800 CST m=+1.363253954
+2018/11/30 13:24:02.974 leader.go:263: [info] cluster version is 0.0.0
+2018/11/30 13:24:02.974 leader.go:264: [info] PD cluster leader pd1 is ready to serve
+2018/11/30 13:24:06.240 id.go:90: [info] idAllocator allocates a new id: 1000
+2018/11/30 13:24:06.550 server.go:352: [info] try to bootstrap raft cluster 6629520143555668511 with header:<cluster_id:6629520143555668511 > store:<id:1 address:"192.168.199.118:20431" version:"3.0.0-alpha" > region:<id:2 region_epoch:<conf_ver:1 version:1 > peers:<id:3 store_id:1 > > 
+2018/11/30 13:24:06.551 server.go:409: [info] bootstrap cluster 6629520143555668511 ok
+2018/11/30 13:24:06.603 cluster_info.go:75: [info] load 1 stores cost 404.32µs
+2018/11/30 13:24:06.603 cluster_info.go:81: [info] load 1 regions cost 138.392µs
+2018/11/30 13:24:06.604 namespace_classifier.go:438: [info] load 0 namespacesInfo cost 122.777µs
+2018/11/30 13:24:06.604 coordinator.go:177: [info] coordinator: Start collect cluster information
+2018/11/30 13:24:06.790 grpc_service.go:210: [info] put store ok - id:1 address:"192.168.199.118:20431" version:"3.0.0-alpha" 
+2018/11/30 13:24:06.791 cluster_info.go:110: [info] cluster version changed from 0.0.0 to 3.0.0-alpha
+2018/11/30 13:24:06.791 util.go:79: [warning] PD version 2.1.0-rc.2-63-gc0c7b1a less than cluster version: 3.0.0-alpha, please upgrade PD
+2018/11/30 13:24:07.063 grpc_service.go:210: [info] put store ok - id:4 address:"192.168.199.118:20432" version:"3.0.0-alpha" 
+2018/11/30 13:24:07.678 grpc_service.go:210: [info] put store ok - id:5 address:"192.168.199.118:20433" version:"3.0.0-alpha" 
+2018/11/30 13:24:07.768 grpc_service.go:210: [info] put store ok - id:6 address:"192.168.199.118:20434" version:"3.0.0-alpha" 
+2018/11/30 13:24:09.604 coordinator.go:180: [info] coordinator: Cluster information is prepared
+2018/11/30 13:24:09.604 coordinator.go:189: [info] coordinator: Run scheduler
+2018/11/30 13:24:09.604 coordinator.go:204: [info] create scheduler balance-region-scheduler
+2018/11/30 13:24:09.604 coordinator.go:204: [info] create scheduler balance-leader-scheduler
+2018/11/30 13:24:09.604 coordinator.go:204: [info] create scheduler balance-hot-region-scheduler
+2018/11/30 13:24:09.604 coordinator.go:204: [info] create scheduler label-scheduler
+2018/11/30 13:24:09.604 coordinator.go:89: [info] coordinator: start patrol regions
+2018/11/30 13:24:10.219 cluster_info.go:484: [info] [region 2] StartKey Changed:{} -> {7480000000000000FF0500000000000000F8}, EndKey:{}, Version changed from {1} to {2}
+2018/11/30 13:24:10.219 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:7 end_key:"7480000000000000FF0500000000000000F8" region_epoch:<conf_ver:1 version:2 > peers:<id:8 store_id:1 > ]
+2018/11/30 13:24:11.079 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF0500000000000000F8} -> {7480000000000000FF0700000000000000F8}, EndKey:{}, Version changed from {2} to {3}
+2018/11/30 13:24:11.079 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:9 start_key:"7480000000000000FF0500000000000000F8" end_key:"7480000000000000FF0700000000000000F8" region_epoch:<conf_ver:1 version:3 > peers:<id:10 store_id:1 > ]
+2018/11/30 13:24:11.647 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF0700000000000000F8} -> {7480000000000000FF0900000000000000F8}, EndKey:{}, Version changed from {3} to {4}
+2018/11/30 13:24:11.647 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:11 start_key:"7480000000000000FF0700000000000000F8" end_key:"7480000000000000FF0900000000000000F8" region_epoch:<conf_ver:1 version:4 > peers:<id:12 store_id:1 > ]
+2018/11/30 13:24:12.055 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF0900000000000000F8} -> {7480000000000000FF0B00000000000000F8}, EndKey:{}, Version changed from {4} to {5}
+2018/11/30 13:24:12.055 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:13 start_key:"7480000000000000FF0900000000000000F8" end_key:"7480000000000000FF0B00000000000000F8" region_epoch:<conf_ver:1 version:5 > peers:<id:14 store_id:1 > ]
+2018/11/30 13:24:12.532 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF0B00000000000000F8} -> {7480000000000000FF0D00000000000000F8}, EndKey:{}, Version changed from {5} to {6}
+2018/11/30 13:24:12.532 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:15 start_key:"7480000000000000FF0B00000000000000F8" end_key:"7480000000000000FF0D00000000000000F8" region_epoch:<conf_ver:1 version:6 > peers:<id:16 store_id:1 > ]
+2018/11/30 13:24:13.086 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF0D00000000000000F8} -> {7480000000000000FF0F00000000000000F8}, EndKey:{}, Version changed from {6} to {7}
+2018/11/30 13:24:13.086 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:17 start_key:"7480000000000000FF0D00000000000000F8" end_key:"7480000000000000FF0F00000000000000F8" region_epoch:<conf_ver:1 version:7 > peers:<id:18 store_id:1 > ]
+2018/11/30 13:24:13.468 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF0F00000000000000F8} -> {7480000000000000FF1100000000000000F8}, EndKey:{}, Version changed from {7} to {8}
+2018/11/30 13:24:13.468 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:19 start_key:"7480000000000000FF0F00000000000000F8" end_key:"7480000000000000FF1100000000000000F8" region_epoch:<conf_ver:1 version:8 > peers:<id:20 store_id:1 > ]
+2018/11/30 13:24:13.762 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1100000000000000F8} -> {7480000000000000FF1300000000000000F8}, EndKey:{}, Version changed from {8} to {9}
+2018/11/30 13:24:13.762 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:21 start_key:"7480000000000000FF1100000000000000F8" end_key:"7480000000000000FF1300000000000000F8" region_epoch:<conf_ver:1 version:9 > peers:<id:22 store_id:1 > ]
+2018/11/30 13:24:14.120 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1300000000000000F8} -> {7480000000000000FF1500000000000000F8}, EndKey:{}, Version changed from {9} to {10}
+2018/11/30 13:24:14.120 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:23 start_key:"7480000000000000FF1300000000000000F8" end_key:"7480000000000000FF1500000000000000F8" region_epoch:<conf_ver:1 version:10 > peers:<id:24 store_id:1 > ]
+2018/11/30 13:24:14.511 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1500000000000000F8} -> {7480000000000000FF1700000000000000F8}, EndKey:{}, Version changed from {10} to {11}
+2018/11/30 13:24:14.511 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:25 start_key:"7480000000000000FF1500000000000000F8" end_key:"7480000000000000FF1700000000000000F8" region_epoch:<conf_ver:1 version:11 > peers:<id:26 store_id:1 > ]
+2018/11/30 13:24:15.128 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1700000000000000F8} -> {7480000000000000FF1900000000000000F8}, EndKey:{}, Version changed from {11} to {12}
+2018/11/30 13:24:15.128 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:27 start_key:"7480000000000000FF1700000000000000F8" end_key:"7480000000000000FF1900000000000000F8" region_epoch:<conf_ver:1 version:12 > peers:<id:28 store_id:1 > ]
+2018/11/30 13:24:15.507 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1900000000000000F8} -> {7480000000000000FF1B00000000000000F8}, EndKey:{}, Version changed from {12} to {13}
+2018/11/30 13:24:15.507 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:29 start_key:"7480000000000000FF1900000000000000F8" end_key:"7480000000000000FF1B00000000000000F8" region_epoch:<conf_ver:1 version:13 > peers:<id:30 store_id:1 > ]
+2018/11/30 13:24:15.920 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1B00000000000000F8} -> {7480000000000000FF1D00000000000000F8}, EndKey:{}, Version changed from {13} to {14}
+2018/11/30 13:24:15.920 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:31 start_key:"7480000000000000FF1B00000000000000F8" end_key:"7480000000000000FF1D00000000000000F8" region_epoch:<conf_ver:1 version:14 > peers:<id:32 store_id:1 > ]
+2018/11/30 13:24:17.313 operator_controller.go:121: [info] [region 7] add operator: makeUpReplica (kind:region,replica, region:7(2,1), createAt:2018-11-30 13:24:17.31322808 +0800 CST m=+15.701712941, currentStep:0, steps:[add learner peer 33 on store 4 promote learner peer 33 on store 4 to voter]) 
+2018/11/30 13:24:17.313 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 33 on store 4
+2018/11/30 13:24:17.413 operator_controller.go:121: [info] [region 9] add operator: makeUpReplica (kind:region,replica, region:9(3,1), createAt:2018-11-30 13:24:17.4133671 +0800 CST m=+15.801851957, currentStep:0, steps:[add learner peer 34 on store 4 promote learner peer 34 on store 4 to voter]) 
+2018/11/30 13:24:17.413 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 34 on store 4
+2018/11/30 13:24:17.442 cluster_info.go:488: [info] [region 7] Add peer:{id:33 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:17.443 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 33 on store 4
+2018/11/30 13:24:17.513 operator_controller.go:121: [info] [region 11] add operator: makeUpReplica (kind:region,replica, region:11(4,1), createAt:2018-11-30 13:24:17.51351705 +0800 CST m=+15.902001909, currentStep:0, steps:[add learner peer 35 on store 4 promote learner peer 35 on store 4 to voter]) 
+2018/11/30 13:24:17.513 operator_controller.go:180: [info] [region 11] send schedule command: add learner peer 35 on store 4
+2018/11/30 13:24:17.541 cluster_info.go:488: [info] [region 9] Add peer:{id:34 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:17.541 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 34 on store 4
+2018/11/30 13:24:17.613 operator_controller.go:121: [info] [region 13] add operator: makeUpReplica (kind:region,replica, region:13(5,1), createAt:2018-11-30 13:24:17.61365692 +0800 CST m=+16.002141780, currentStep:0, steps:[add learner peer 36 on store 4 promote learner peer 36 on store 4 to voter]) 
+2018/11/30 13:24:17.613 operator_controller.go:180: [info] [region 13] send schedule command: add learner peer 36 on store 4
+2018/11/30 13:24:17.654 cluster_info.go:488: [info] [region 11] Add peer:{id:35 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:17.655 operator_controller.go:180: [info] [region 11] send schedule command: add learner peer 35 on store 4
+2018/11/30 13:24:17.713 operator_controller.go:121: [info] [region 15] add operator: makeUpReplica (kind:region,replica, region:15(6,1), createAt:2018-11-30 13:24:17.713751678 +0800 CST m=+16.102236535, currentStep:0, steps:[add learner peer 37 on store 4 promote learner peer 37 on store 4 to voter]) 
+2018/11/30 13:24:17.713 operator_controller.go:180: [info] [region 15] send schedule command: add learner peer 37 on store 4
+2018/11/30 13:24:17.740 cluster_info.go:488: [info] [region 13] Add peer:{id:36 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:17.741 operator_controller.go:180: [info] [region 13] send schedule command: add learner peer 36 on store 4
+2018/11/30 13:24:17.813 operator_controller.go:121: [info] [region 17] add operator: makeUpReplica (kind:region,replica, region:17(7,1), createAt:2018-11-30 13:24:17.813916954 +0800 CST m=+16.202401823, currentStep:0, steps:[add learner peer 38 on store 4 promote learner peer 38 on store 4 to voter]) 
+2018/11/30 13:24:17.813 operator_controller.go:180: [info] [region 17] send schedule command: add learner peer 38 on store 4
+2018/11/30 13:24:17.847 cluster_info.go:488: [info] [region 15] Add peer:{id:37 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:17.847 operator_controller.go:180: [info] [region 15] send schedule command: add learner peer 37 on store 4
+2018/11/30 13:24:17.913 operator_controller.go:121: [info] [region 19] add operator: makeUpReplica (kind:region,replica, region:19(8,1), createAt:2018-11-30 13:24:17.91395395 +0800 CST m=+16.302438813, currentStep:0, steps:[add learner peer 39 on store 5 promote learner peer 39 on store 5 to voter]) 
+2018/11/30 13:24:17.913 operator_controller.go:180: [info] [region 19] send schedule command: add learner peer 39 on store 5
+2018/11/30 13:24:17.951 cluster_info.go:488: [info] [region 17] Add peer:{id:38 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:17.952 operator_controller.go:180: [info] [region 17] send schedule command: add learner peer 38 on store 4
+2018/11/30 13:24:18.014 operator_controller.go:121: [info] [region 21] add operator: makeUpReplica (kind:region,replica, region:21(9,1), createAt:2018-11-30 13:24:18.01408421 +0800 CST m=+16.402569063, currentStep:0, steps:[add learner peer 40 on store 5 promote learner peer 40 on store 5 to voter]) 
+2018/11/30 13:24:18.014 operator_controller.go:180: [info] [region 21] send schedule command: add learner peer 40 on store 5
+2018/11/30 13:24:18.041 cluster_info.go:488: [info] [region 19] Add peer:{id:39 store_id:5 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:18.055 operator_controller.go:180: [info] [region 19] send schedule command: add learner peer 39 on store 5
+2018/11/30 13:24:18.155 cluster_info.go:488: [info] [region 21] Add peer:{id:40 store_id:5 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:18.182 operator_controller.go:180: [info] [region 21] send schedule command: add learner peer 40 on store 5
+2018/11/30 13:24:21.955 operator_controller.go:180: [info] [region 11] send schedule command: promote learner peer 35 on store 4 to voter
+2018/11/30 13:24:21.955 operator_controller.go:180: [info] [region 11] send schedule command: promote learner peer 35 on store 4 to voter
+2018/11/30 13:24:22.255 cluster_info.go:488: [info] [region 11] Remove peer:{id:35 store_id:4 is_learner:true },Add peer:{id:35 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:22.255 operator_controller.go:67: [info] [region 11] operator finish: makeUpReplica (kind:region,replica, region:11(4,1), createAt:2018-11-30 13:24:17.51351705 +0800 CST m=+15.902001909, currentStep:2, steps:[add learner peer 35 on store 4 promote learner peer 35 on store 4 to voter]) finished
+2018/11/30 13:24:22.318 operator_controller.go:121: [info] [region 11] add operator: makeUpReplica (kind:region,replica, region:11(4,3), createAt:2018-11-30 13:24:22.318422475 +0800 CST m=+20.706907328, currentStep:0, steps:[add learner peer 41 on store 6 promote learner peer 41 on store 6 to voter]) 
+2018/11/30 13:24:22.318 operator_controller.go:180: [info] [region 11] send schedule command: add learner peer 41 on store 6
+2018/11/30 13:24:22.373 operator_controller.go:180: [info] [region 11] send schedule command: add learner peer 41 on store 6
+2018/11/30 13:24:22.486 cluster_info.go:488: [info] [region 11] Add peer:{id:41 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:22.487 operator_controller.go:180: [info] [region 11] send schedule command: add learner peer 41 on store 6
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 17] send schedule command: promote learner peer 38 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 37 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 9] send schedule command: promote learner peer 34 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 9] send schedule command: promote learner peer 34 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 37 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 17] send schedule command: promote learner peer 38 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 7] send schedule command: promote learner peer 33 on store 4 to voter
+2018/11/30 13:24:23.056 operator_controller.go:180: [info] [region 7] send schedule command: promote learner peer 33 on store 4 to voter
+2018/11/30 13:24:23.180 cluster_info.go:488: [info] [region 17] Remove peer:{id:38 store_id:4 is_learner:true },Add peer:{id:38 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:23.181 operator_controller.go:67: [info] [region 17] operator finish: makeUpReplica (kind:region,replica, region:17(7,1), createAt:2018-11-30 13:24:17.813916954 +0800 CST m=+16.202401823, currentStep:2, steps:[add learner peer 38 on store 4 promote learner peer 38 on store 4 to voter]) finished
+2018/11/30 13:24:23.181 cluster_info.go:488: [info] [region 15] Remove peer:{id:37 store_id:4 is_learner:true },Add peer:{id:37 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:23.219 operator_controller.go:121: [info] [region 17] add operator: makeUpReplica (kind:region,replica, region:17(7,3), createAt:2018-11-30 13:24:23.219274371 +0800 CST m=+21.607759222, currentStep:0, steps:[add learner peer 42 on store 6 promote learner peer 42 on store 6 to voter]) 
+2018/11/30 13:24:23.219 operator_controller.go:180: [info] [region 17] send schedule command: add learner peer 42 on store 6
+2018/11/30 13:24:23.249 operator_controller.go:67: [info] [region 15] operator finish: makeUpReplica (kind:region,replica, region:15(6,1), createAt:2018-11-30 13:24:17.713751678 +0800 CST m=+16.102236535, currentStep:2, steps:[add learner peer 37 on store 4 promote learner peer 37 on store 4 to voter]) finished
+2018/11/30 13:24:23.250 cluster_info.go:488: [info] [region 9] Remove peer:{id:34 store_id:4 is_learner:true },Add peer:{id:34 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:23.250 operator_controller.go:67: [info] [region 9] operator finish: makeUpReplica (kind:region,replica, region:9(3,1), createAt:2018-11-30 13:24:17.4133671 +0800 CST m=+15.801851957, currentStep:2, steps:[add learner peer 34 on store 4 promote learner peer 34 on store 4 to voter]) finished
+2018/11/30 13:24:23.283 cluster_info.go:488: [info] [region 7] Remove peer:{id:33 store_id:4 is_learner:true },Add peer:{id:33 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:23.284 operator_controller.go:67: [info] [region 7] operator finish: makeUpReplica (kind:region,replica, region:7(2,1), createAt:2018-11-30 13:24:17.31322808 +0800 CST m=+15.701712941, currentStep:2, steps:[add learner peer 33 on store 4 promote learner peer 33 on store 4 to voter]) finished
+2018/11/30 13:24:23.284 operator_controller.go:180: [info] [region 17] send schedule command: add learner peer 42 on store 6
+2018/11/30 13:24:23.319 operator_controller.go:121: [info] [region 23] add operator: makeUpReplica (kind:region,replica, region:23(10,1), createAt:2018-11-30 13:24:23.319322532 +0800 CST m=+21.707807388, currentStep:0, steps:[add learner peer 43 on store 6 promote learner peer 43 on store 6 to voter]) 
+2018/11/30 13:24:23.319 operator_controller.go:180: [info] [region 23] send schedule command: add learner peer 43 on store 6
+2018/11/30 13:24:23.419 operator_controller.go:121: [info] [region 25] add operator: makeUpReplica (kind:region,replica, region:25(11,1), createAt:2018-11-30 13:24:23.419429793 +0800 CST m=+21.807914653, currentStep:0, steps:[add learner peer 44 on store 6 promote learner peer 44 on store 6 to voter]) 
+2018/11/30 13:24:23.419 operator_controller.go:180: [info] [region 25] send schedule command: add learner peer 44 on store 6
+2018/11/30 13:24:23.447 cluster_info.go:488: [info] [region 17] Add peer:{id:42 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:23.448 operator_controller.go:180: [info] [region 17] send schedule command: add learner peer 42 on store 6
+2018/11/30 13:24:23.501 operator_controller.go:121: [info] [region 15] add operator: balance-leader (kind:leader,balance, region:15(6,3), createAt:2018-11-30 13:24:23.501134547 +0800 CST m=+21.889619419, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/11/30 13:24:23.501 operator_controller.go:180: [info] [region 15] send schedule command: transfer leader from store 1 to store 4
+2018/11/30 13:24:23.516 cluster_info.go:488: [info] [region 23] Add peer:{id:43 store_id:6 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:23.519 operator_controller.go:121: [info] [region 27] add operator: makeUpReplica (kind:region,replica, region:27(12,1), createAt:2018-11-30 13:24:23.519476114 +0800 CST m=+21.907960972, currentStep:0, steps:[add learner peer 45 on store 5 promote learner peer 45 on store 5 to voter]) 
+2018/11/30 13:24:23.519 operator_controller.go:180: [info] [region 27] send schedule command: add learner peer 45 on store 5
+2018/11/30 13:24:23.559 operator_controller.go:180: [info] [region 23] send schedule command: add learner peer 43 on store 6
+2018/11/30 13:24:23.593 cluster_info.go:488: [info] [region 25] Add peer:{id:44 store_id:6 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:23.594 operator_controller.go:180: [info] [region 25] send schedule command: add learner peer 44 on store 6
+2018/11/30 13:24:23.654 cluster_info.go:488: [info] [region 27] Add peer:{id:45 store_id:5 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:23.655 operator_controller.go:180: [info] [region 27] send schedule command: add learner peer 45 on store 5
+2018/11/30 13:24:23.655 cluster_info.go:495: [info] [region 15] Leader changed from store {1} to {4}
+2018/11/30 13:24:23.655 operator_controller.go:67: [info] [region 15] operator finish: balance-leader (kind:leader,balance, region:15(6,3), createAt:2018-11-30 13:24:23.501134547 +0800 CST m=+21.889619419, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/11/30 13:24:24.056 operator_controller.go:180: [info] [region 19] send schedule command: promote learner peer 39 on store 5 to voter
+2018/11/30 13:24:24.056 operator_controller.go:180: [info] [region 19] send schedule command: promote learner peer 39 on store 5 to voter
+2018/11/30 13:24:24.056 operator_controller.go:180: [info] [region 13] send schedule command: promote learner peer 36 on store 4 to voter
+2018/11/30 13:24:24.056 operator_controller.go:180: [info] [region 13] send schedule command: promote learner peer 36 on store 4 to voter
+2018/11/30 13:24:24.225 cluster_info.go:488: [info] [region 19] Remove peer:{id:39 store_id:5 is_learner:true },Add peer:{id:39 store_id:5 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:24.226 operator_controller.go:67: [info] [region 19] operator finish: makeUpReplica (kind:region,replica, region:19(8,1), createAt:2018-11-30 13:24:17.91395395 +0800 CST m=+16.302438813, currentStep:2, steps:[add learner peer 39 on store 5 promote learner peer 39 on store 5 to voter]) finished
+2018/11/30 13:24:24.320 operator_controller.go:121: [info] [region 7] add operator: makeUpReplica (kind:region,replica, region:7(2,3), createAt:2018-11-30 13:24:24.320406988 +0800 CST m=+22.708891849, currentStep:0, steps:[add learner peer 46 on store 5 promote learner peer 46 on store 5 to voter]) 
+2018/11/30 13:24:24.320 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 46 on store 5
+2018/11/30 13:24:24.363 cluster_info.go:488: [info] [region 13] Remove peer:{id:36 store_id:4 is_learner:true },Add peer:{id:36 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:24.365 operator_controller.go:67: [info] [region 13] operator finish: makeUpReplica (kind:region,replica, region:13(5,1), createAt:2018-11-30 13:24:17.61365692 +0800 CST m=+16.002141780, currentStep:2, steps:[add learner peer 36 on store 4 promote learner peer 36 on store 4 to voter]) finished
+2018/11/30 13:24:24.365 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 46 on store 5
+2018/11/30 13:24:24.420 operator_controller.go:121: [info] [region 9] add operator: makeUpReplica (kind:region,replica, region:9(3,3), createAt:2018-11-30 13:24:24.420462002 +0800 CST m=+22.808946872, currentStep:0, steps:[add learner peer 47 on store 5 promote learner peer 47 on store 5 to voter]) 
+2018/11/30 13:24:24.420 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 47 on store 5
+2018/11/30 13:24:24.489 cluster_info.go:488: [info] [region 7] Add peer:{id:46 store_id:5 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:24.525 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 46 on store 5
+2018/11/30 13:24:24.526 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 47 on store 5
+2018/11/30 13:24:24.846 cluster_info.go:488: [info] [region 9] Add peer:{id:47 store_id:5 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:24.847 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 47 on store 5
+2018/11/30 13:24:26.156 operator_controller.go:180: [info] [region 21] send schedule command: promote learner peer 40 on store 5 to voter
+2018/11/30 13:24:26.156 operator_controller.go:180: [info] [region 21] send schedule command: promote learner peer 40 on store 5 to voter
+2018/11/30 13:24:26.355 cluster_info.go:488: [info] [region 21] Remove peer:{id:40 store_id:5 is_learner:true },Add peer:{id:40 store_id:5 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:26.355 operator_controller.go:67: [info] [region 21] operator finish: makeUpReplica (kind:region,replica, region:21(9,1), createAt:2018-11-30 13:24:18.01408421 +0800 CST m=+16.402569063, currentStep:2, steps:[add learner peer 40 on store 5 promote learner peer 40 on store 5 to voter]) finished
+2018/11/30 13:24:26.422 operator_controller.go:121: [info] [region 13] add operator: makeUpReplica (kind:region,replica, region:13(5,3), createAt:2018-11-30 13:24:26.422652329 +0800 CST m=+24.811137185, currentStep:0, steps:[add learner peer 48 on store 6 promote learner peer 48 on store 6 to voter]) 
+2018/11/30 13:24:26.422 operator_controller.go:180: [info] [region 13] send schedule command: add learner peer 48 on store 6
+2018/11/30 13:24:26.636 cluster_info.go:488: [info] [region 13] Add peer:{id:48 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:26.636 operator_controller.go:180: [info] [region 13] send schedule command: add learner peer 48 on store 6
+2018/11/30 13:24:27.676 operator_controller.go:121: [info] [region 19] add operator: balance-leader (kind:leader,balance, region:19(8,3), createAt:2018-11-30 13:24:27.676766181 +0800 CST m=+26.065251050, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/11/30 13:24:27.676 operator_controller.go:180: [info] [region 19] send schedule command: transfer leader from store 1 to store 5
+2018/11/30 13:24:27.686 operator_controller.go:121: [info] [region 21] add operator: balance-leader (kind:leader,balance, region:21(9,3), createAt:2018-11-30 13:24:27.686619195 +0800 CST m=+26.075104054, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/11/30 13:24:27.686 operator_controller.go:180: [info] [region 21] send schedule command: transfer leader from store 1 to store 5
+2018/11/30 13:24:27.804 cluster_info.go:495: [info] [region 19] Leader changed from store {1} to {5}
+2018/11/30 13:24:27.804 operator_controller.go:67: [info] [region 19] operator finish: balance-leader (kind:leader,balance, region:19(8,3), createAt:2018-11-30 13:24:27.676766181 +0800 CST m=+26.065251050, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/11/30 13:24:27.864 cluster_info.go:495: [info] [region 21] Leader changed from store {1} to {5}
+2018/11/30 13:24:27.864 operator_controller.go:67: [info] [region 21] operator finish: balance-leader (kind:leader,balance, region:21(9,3), createAt:2018-11-30 13:24:27.686619195 +0800 CST m=+26.075104054, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/11/30 13:24:28.256 operator_controller.go:180: [info] [region 23] send schedule command: promote learner peer 43 on store 6 to voter
+2018/11/30 13:24:28.256 operator_controller.go:180: [info] [region 23] send schedule command: promote learner peer 43 on store 6 to voter
+2018/11/30 13:24:28.455 cluster_info.go:488: [info] [region 23] Remove peer:{id:43 store_id:6 is_learner:true },Add peer:{id:43 store_id:6 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:28.455 operator_controller.go:67: [info] [region 23] operator finish: makeUpReplica (kind:region,replica, region:23(10,1), createAt:2018-11-30 13:24:23.319322532 +0800 CST m=+21.707807388, currentStep:2, steps:[add learner peer 43 on store 6 promote learner peer 43 on store 6 to voter]) finished
+2018/11/30 13:24:28.525 operator_controller.go:121: [info] [region 15] add operator: makeUpReplica (kind:region,replica, region:15(6,3), createAt:2018-11-30 13:24:28.525034844 +0800 CST m=+26.913519702, currentStep:0, steps:[add learner peer 49 on store 5 promote learner peer 49 on store 5 to voter]) 
+2018/11/30 13:24:28.525 operator_controller.go:180: [info] [region 15] send schedule command: add learner peer 49 on store 5
+2018/11/30 13:24:28.674 operator_controller.go:121: [info] [region 23] add operator: balance-leader (kind:leader,balance, region:23(10,3), createAt:2018-11-30 13:24:28.674399302 +0800 CST m=+27.062884159, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/11/30 13:24:28.674 operator_controller.go:180: [info] [region 23] send schedule command: transfer leader from store 1 to store 6
+2018/11/30 13:24:28.697 cluster_info.go:488: [info] [region 15] Add peer:{id:49 store_id:5 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:28.697 operator_controller.go:180: [info] [region 15] send schedule command: add learner peer 49 on store 5
+2018/11/30 13:24:28.819 cluster_info.go:495: [info] [region 23] Leader changed from store {1} to {6}
+2018/11/30 13:24:28.819 operator_controller.go:67: [info] [region 23] operator finish: balance-leader (kind:leader,balance, region:23(10,3), createAt:2018-11-30 13:24:28.674399302 +0800 CST m=+27.062884159, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 25] send schedule command: promote learner peer 44 on store 6 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 17] send schedule command: promote learner peer 42 on store 6 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 17] send schedule command: promote learner peer 42 on store 6 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 25] send schedule command: promote learner peer 44 on store 6 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 7] send schedule command: promote learner peer 46 on store 5 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 9] send schedule command: promote learner peer 47 on store 5 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 27] send schedule command: promote learner peer 45 on store 5 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 9] send schedule command: promote learner peer 47 on store 5 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 7] send schedule command: promote learner peer 46 on store 5 to voter
+2018/11/30 13:24:29.355 operator_controller.go:180: [info] [region 27] send schedule command: promote learner peer 45 on store 5 to voter
+2018/11/30 13:24:29.440 cluster_info.go:488: [info] [region 25] Remove peer:{id:44 store_id:6 is_learner:true },Add peer:{id:44 store_id:6 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:29.441 operator_controller.go:67: [info] [region 25] operator finish: makeUpReplica (kind:region,replica, region:25(11,1), createAt:2018-11-30 13:24:23.419429793 +0800 CST m=+21.807914653, currentStep:2, steps:[add learner peer 44 on store 6 promote learner peer 44 on store 6 to voter]) finished
+2018/11/30 13:24:29.526 operator_controller.go:121: [info] [region 19] add operator: makeUpReplica (kind:region,replica, region:19(8,3), createAt:2018-11-30 13:24:29.52606059 +0800 CST m=+27.914545449, currentStep:0, steps:[add learner peer 50 on store 6 promote learner peer 50 on store 6 to voter]) 
+2018/11/30 13:24:29.526 operator_controller.go:180: [info] [region 19] send schedule command: add learner peer 50 on store 6
+2018/11/30 13:24:29.536 cluster_info.go:488: [info] [region 27] Remove peer:{id:45 store_id:5 is_learner:true },Add peer:{id:45 store_id:5 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:29.536 operator_controller.go:67: [info] [region 27] operator finish: makeUpReplica (kind:region,replica, region:27(12,1), createAt:2018-11-30 13:24:23.519476114 +0800 CST m=+21.907960972, currentStep:2, steps:[add learner peer 45 on store 5 promote learner peer 45 on store 5 to voter]) finished
+2018/11/30 13:24:29.605 cluster_info.go:488: [info] [region 17] Remove peer:{id:42 store_id:6 is_learner:true },Add peer:{id:42 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:29.605 operator_controller.go:67: [info] [region 17] operator finish: makeUpReplica (kind:region,replica, region:17(7,3), createAt:2018-11-30 13:24:23.219274371 +0800 CST m=+21.607759222, currentStep:2, steps:[add learner peer 42 on store 6 promote learner peer 42 on store 6 to voter]) finished
+2018/11/30 13:24:29.626 operator_controller.go:121: [info] [region 21] add operator: makeUpReplica (kind:region,replica, region:21(9,3), createAt:2018-11-30 13:24:29.626124541 +0800 CST m=+28.014609398, currentStep:0, steps:[add learner peer 51 on store 6 promote learner peer 51 on store 6 to voter]) 
+2018/11/30 13:24:29.626 operator_controller.go:180: [info] [region 21] send schedule command: add learner peer 51 on store 6
+2018/11/30 13:24:29.639 cluster_info.go:488: [info] [region 9] Remove peer:{id:47 store_id:5 is_learner:true },Add peer:{id:47 store_id:5 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:29.661 operator_controller.go:67: [info] [region 9] operator finish: makeUpReplica (kind:region,replica, region:9(3,3), createAt:2018-11-30 13:24:24.420462002 +0800 CST m=+22.808946872, currentStep:2, steps:[add learner peer 47 on store 5 promote learner peer 47 on store 5 to voter]) finished
+2018/11/30 13:24:29.708 cluster_info.go:488: [info] [region 7] Remove peer:{id:46 store_id:5 is_learner:true },Add peer:{id:46 store_id:5 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:29.708 operator_controller.go:67: [info] [region 7] operator finish: makeUpReplica (kind:region,replica, region:7(2,3), createAt:2018-11-30 13:24:24.320406988 +0800 CST m=+22.708891849, currentStep:2, steps:[add learner peer 46 on store 5 promote learner peer 46 on store 5 to voter]) finished
+2018/11/30 13:24:29.726 operator_controller.go:121: [info] [region 23] add operator: makeUpReplica (kind:region,replica, region:23(10,3), createAt:2018-11-30 13:24:29.726189979 +0800 CST m=+28.114674848, currentStep:0, steps:[add learner peer 52 on store 4 promote learner peer 52 on store 4 to voter]) 
+2018/11/30 13:24:29.726 operator_controller.go:180: [info] [region 23] send schedule command: add learner peer 52 on store 4
+2018/11/30 13:24:29.743 cluster_info.go:488: [info] [region 19] Add peer:{id:50 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:29.744 operator_controller.go:180: [info] [region 19] send schedule command: add learner peer 50 on store 6
+2018/11/30 13:24:29.826 operator_controller.go:121: [info] [region 25] add operator: makeUpReplica (kind:region,replica, region:25(11,3), createAt:2018-11-30 13:24:29.826377734 +0800 CST m=+28.214862595, currentStep:0, steps:[add learner peer 53 on store 4 promote learner peer 53 on store 4 to voter]) 
+2018/11/30 13:24:29.826 operator_controller.go:180: [info] [region 25] send schedule command: add learner peer 53 on store 4
+2018/11/30 13:24:29.926 operator_controller.go:121: [info] [region 27] add operator: makeUpReplica (kind:region,replica, region:27(12,3), createAt:2018-11-30 13:24:29.926476271 +0800 CST m=+28.314961132, currentStep:0, steps:[add learner peer 54 on store 6 promote learner peer 54 on store 6 to voter]) 
+2018/11/30 13:24:29.926 operator_controller.go:180: [info] [region 27] send schedule command: add learner peer 54 on store 6
+2018/11/30 13:24:29.941 cluster_info.go:488: [info] [region 23] Add peer:{id:52 store_id:4 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:29.942 operator_controller.go:180: [info] [region 23] send schedule command: add learner peer 52 on store 4
+2018/11/30 13:24:29.984 cluster_info.go:488: [info] [region 21] Add peer:{id:51 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:29.984 operator_controller.go:180: [info] [region 25] send schedule command: add learner peer 53 on store 4
+2018/11/30 13:24:29.984 operator_controller.go:180: [info] [region 27] send schedule command: add learner peer 54 on store 6
+2018/11/30 13:24:30.018 operator_controller.go:180: [info] [region 21] send schedule command: add learner peer 51 on store 6
+2018/11/30 13:24:30.209 cluster_info.go:488: [info] [region 25] Add peer:{id:53 store_id:4 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:30.209 operator_controller.go:180: [info] [region 25] send schedule command: add learner peer 53 on store 4
+2018/11/30 13:24:30.209 cluster_info.go:488: [info] [region 27] Add peer:{id:54 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:30.235 operator_controller.go:180: [info] [region 27] send schedule command: add learner peer 54 on store 6
+2018/11/30 13:24:30.356 operator_controller.go:180: [info] [region 11] send schedule command: promote learner peer 41 on store 6 to voter
+2018/11/30 13:24:30.356 operator_controller.go:180: [info] [region 11] send schedule command: promote learner peer 41 on store 6 to voter
+2018/11/30 13:24:30.574 cluster_info.go:488: [info] [region 11] Remove peer:{id:41 store_id:6 is_learner:true },Add peer:{id:41 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:30.575 operator_controller.go:67: [info] [region 11] operator finish: makeUpReplica (kind:region,replica, region:11(4,3), createAt:2018-11-30 13:24:22.318422475 +0800 CST m=+20.706907328, currentStep:2, steps:[add learner peer 41 on store 6 promote learner peer 41 on store 6 to voter]) finished
+2018/11/30 13:24:30.627 operator_controller.go:121: [info] [region 29] add operator: makeUpReplica (kind:region,replica, region:29(13,1), createAt:2018-11-30 13:24:30.627633476 +0800 CST m=+29.016118334, currentStep:0, steps:[add learner peer 55 on store 5 promote learner peer 55 on store 5 to voter]) 
+2018/11/30 13:24:30.627 operator_controller.go:180: [info] [region 29] send schedule command: add learner peer 55 on store 5
+2018/11/30 13:24:30.856 cluster_info.go:488: [info] [region 29] Add peer:{id:55 store_id:5 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:30.856 operator_controller.go:180: [info] [region 29] send schedule command: add learner peer 55 on store 5
+2018/11/30 13:24:32.555 operator_controller.go:180: [info] [region 13] send schedule command: promote learner peer 48 on store 6 to voter
+2018/11/30 13:24:32.555 operator_controller.go:180: [info] [region 13] send schedule command: promote learner peer 48 on store 6 to voter
+2018/11/30 13:24:33.011 cluster_info.go:488: [info] [region 13] Remove peer:{id:48 store_id:6 is_learner:true },Add peer:{id:48 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:33.066 operator_controller.go:67: [info] [region 13] operator finish: makeUpReplica (kind:region,replica, region:13(5,3), createAt:2018-11-30 13:24:26.422652329 +0800 CST m=+24.811137185, currentStep:2, steps:[add learner peer 48 on store 6 promote learner peer 48 on store 6 to voter]) finished
+2018/11/30 13:24:33.131 operator_controller.go:121: [info] [region 31] add operator: makeUpReplica (kind:region,replica, region:31(14,1), createAt:2018-11-30 13:24:33.131134959 +0800 CST m=+31.519619816, currentStep:0, steps:[add learner peer 56 on store 5 promote learner peer 56 on store 5 to voter]) 
+2018/11/30 13:24:33.131 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 56 on store 5
+2018/11/30 13:24:33.355 cluster_info.go:488: [info] [region 31] Add peer:{id:56 store_id:5 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:33.355 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 56 on store 5
+2018/11/30 13:24:33.452 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 49 on store 5 to voter
+2018/11/30 13:24:33.452 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 49 on store 5 to voter
+2018/11/30 13:24:33.681 cluster_info.go:488: [info] [region 15] Remove peer:{id:49 store_id:5 is_learner:true },Add peer:{id:49 store_id:5 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:33.681 operator_controller.go:67: [info] [region 15] operator finish: makeUpReplica (kind:region,replica, region:15(6,3), createAt:2018-11-30 13:24:28.525034844 +0800 CST m=+26.913519702, currentStep:2, steps:[add learner peer 49 on store 5 promote learner peer 49 on store 5 to voter]) finished
+2018/11/30 13:24:33.732 operator_controller.go:121: [info] [region 2] add operator: makeUpReplica (kind:region,replica, region:2(14,1), createAt:2018-11-30 13:24:33.731985302 +0800 CST m=+32.120470158, currentStep:0, steps:[add learner peer 57 on store 4 promote learner peer 57 on store 4 to voter]) 
+2018/11/30 13:24:33.732 operator_controller.go:180: [info] [region 2] send schedule command: add learner peer 57 on store 4
+2018/11/30 13:24:33.955 cluster_info.go:488: [info] [region 2] Add peer:{id:57 store_id:4 is_learner:true }, ConfVer changed from {1} to {2}
+2018/11/30 13:24:33.956 operator_controller.go:180: [info] [region 2] send schedule command: add learner peer 57 on store 4
+2018/11/30 13:24:34.283 operator_controller.go:180: [info] [region 19] send schedule command: promote learner peer 50 on store 6 to voter
+2018/11/30 13:24:34.283 operator_controller.go:180: [info] [region 19] send schedule command: promote learner peer 50 on store 6 to voter
+2018/11/30 13:24:34.523 cluster_info.go:488: [info] [region 19] Remove peer:{id:50 store_id:6 is_learner:true },Add peer:{id:50 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:34.524 operator_controller.go:67: [info] [region 19] operator finish: makeUpReplica (kind:region,replica, region:19(8,3), createAt:2018-11-30 13:24:29.52606059 +0800 CST m=+27.914545449, currentStep:2, steps:[add learner peer 50 on store 6 promote learner peer 50 on store 6 to voter]) finished
+2018/11/30 13:24:35.304 operator_controller.go:180: [info] [region 23] send schedule command: promote learner peer 52 on store 4 to voter
+2018/11/30 13:24:35.304 operator_controller.go:180: [info] [region 23] send schedule command: promote learner peer 52 on store 4 to voter
+2018/11/30 13:24:35.468 cluster_info.go:488: [info] [region 23] Remove peer:{id:52 store_id:4 is_learner:true },Add peer:{id:52 store_id:4 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:35.468 operator_controller.go:67: [info] [region 23] operator finish: makeUpReplica (kind:region,replica, region:23(10,3), createAt:2018-11-30 13:24:29.726189979 +0800 CST m=+28.114674848, currentStep:2, steps:[add learner peer 52 on store 4 promote learner peer 52 on store 4 to voter]) finished
+2018/11/30 13:24:35.555 operator_controller.go:180: [info] [region 27] send schedule command: promote learner peer 54 on store 6 to voter
+2018/11/30 13:24:35.555 operator_controller.go:180: [info] [region 27] send schedule command: promote learner peer 54 on store 6 to voter
+2018/11/30 13:24:35.555 operator_controller.go:180: [info] [region 25] send schedule command: promote learner peer 53 on store 4 to voter
+2018/11/30 13:24:35.555 operator_controller.go:180: [info] [region 29] send schedule command: promote learner peer 55 on store 5 to voter
+2018/11/30 13:24:35.555 operator_controller.go:180: [info] [region 25] send schedule command: promote learner peer 53 on store 4 to voter
+2018/11/30 13:24:35.555 operator_controller.go:180: [info] [region 29] send schedule command: promote learner peer 55 on store 5 to voter
+2018/11/30 13:24:35.773 cluster_info.go:488: [info] [region 29] Remove peer:{id:55 store_id:5 is_learner:true },Add peer:{id:55 store_id:5 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:35.773 operator_controller.go:67: [info] [region 29] operator finish: makeUpReplica (kind:region,replica, region:29(13,1), createAt:2018-11-30 13:24:30.627633476 +0800 CST m=+29.016118334, currentStep:2, steps:[add learner peer 55 on store 5 promote learner peer 55 on store 5 to voter]) finished
+2018/11/30 13:24:35.834 operator_controller.go:121: [info] [region 29] add operator: makeUpReplica (kind:region,replica, region:29(13,3), createAt:2018-11-30 13:24:35.834414837 +0800 CST m=+34.222899695, currentStep:0, steps:[add learner peer 58 on store 6 promote learner peer 58 on store 6 to voter]) 
+2018/11/30 13:24:35.834 operator_controller.go:180: [info] [region 29] send schedule command: add learner peer 58 on store 6
+2018/11/30 13:24:35.841 cluster_info.go:488: [info] [region 27] Remove peer:{id:54 store_id:6 is_learner:true },Add peer:{id:54 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:35.875 operator_controller.go:67: [info] [region 27] operator finish: makeUpReplica (kind:region,replica, region:27(12,3), createAt:2018-11-30 13:24:29.926476271 +0800 CST m=+28.314961132, currentStep:2, steps:[add learner peer 54 on store 6 promote learner peer 54 on store 6 to voter]) finished
+2018/11/30 13:24:35.954 cluster_info.go:488: [info] [region 25] Remove peer:{id:53 store_id:4 is_learner:true },Add peer:{id:53 store_id:4 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:35.955 operator_controller.go:67: [info] [region 25] operator finish: makeUpReplica (kind:region,replica, region:25(11,3), createAt:2018-11-30 13:24:29.826377734 +0800 CST m=+28.214862595, currentStep:2, steps:[add learner peer 53 on store 4 promote learner peer 53 on store 4 to voter]) finished
+2018/11/30 13:24:36.053 cluster_info.go:488: [info] [region 29] Add peer:{id:58 store_id:6 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:36.053 operator_controller.go:180: [info] [region 29] send schedule command: add learner peer 58 on store 6
+2018/11/30 13:24:36.383 operator_controller.go:180: [info] [region 21] send schedule command: promote learner peer 51 on store 6 to voter
+2018/11/30 13:24:36.383 operator_controller.go:180: [info] [region 21] send schedule command: promote learner peer 51 on store 6 to voter
+2018/11/30 13:24:36.582 cluster_info.go:488: [info] [region 21] Remove peer:{id:51 store_id:6 is_learner:true },Add peer:{id:51 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:36.582 operator_controller.go:67: [info] [region 21] operator finish: makeUpReplica (kind:region,replica, region:21(9,3), createAt:2018-11-30 13:24:29.626124541 +0800 CST m=+28.014609398, currentStep:2, steps:[add learner peer 51 on store 6 promote learner peer 51 on store 6 to voter]) finished
+2018/11/30 13:24:38.755 operator_controller.go:180: [info] [region 31] send schedule command: promote learner peer 56 on store 5 to voter
+2018/11/30 13:24:38.756 operator_controller.go:180: [info] [region 31] send schedule command: promote learner peer 56 on store 5 to voter
+2018/11/30 13:24:38.756 operator_controller.go:180: [info] [region 2] send schedule command: promote learner peer 57 on store 4 to voter
+2018/11/30 13:24:38.756 operator_controller.go:180: [info] [region 2] send schedule command: promote learner peer 57 on store 4 to voter
+2018/11/30 13:24:38.934 cluster_info.go:488: [info] [region 31] Remove peer:{id:56 store_id:5 is_learner:true },Add peer:{id:56 store_id:5 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:38.934 operator_controller.go:67: [info] [region 31] operator finish: makeUpReplica (kind:region,replica, region:31(14,1), createAt:2018-11-30 13:24:33.131134959 +0800 CST m=+31.519619816, currentStep:2, steps:[add learner peer 56 on store 5 promote learner peer 56 on store 5 to voter]) finished
+2018/11/30 13:24:38.938 operator_controller.go:121: [info] [region 31] add operator: makeUpReplica (kind:region,replica, region:31(14,3), createAt:2018-11-30 13:24:38.938632644 +0800 CST m=+37.327117501, currentStep:0, steps:[add learner peer 59 on store 4 promote learner peer 59 on store 4 to voter]) 
+2018/11/30 13:24:38.938 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 59 on store 4
+2018/11/30 13:24:39.012 cluster_info.go:488: [info] [region 2] Remove peer:{id:57 store_id:4 is_learner:true },Add peer:{id:57 store_id:4 }, ConfVer changed from {2} to {3}
+2018/11/30 13:24:39.038 operator_controller.go:67: [info] [region 2] operator finish: makeUpReplica (kind:region,replica, region:2(14,1), createAt:2018-11-30 13:24:33.731985302 +0800 CST m=+32.120470158, currentStep:2, steps:[add learner peer 57 on store 4 promote learner peer 57 on store 4 to voter]) finished
+2018/11/30 13:24:39.138 operator_controller.go:121: [info] [region 2] add operator: makeUpReplica (kind:region,replica, region:2(14,3), createAt:2018-11-30 13:24:39.138787205 +0800 CST m=+37.527272062, currentStep:0, steps:[add learner peer 60 on store 5 promote learner peer 60 on store 5 to voter]) 
+2018/11/30 13:24:39.138 operator_controller.go:180: [info] [region 2] send schedule command: add learner peer 60 on store 5
+2018/11/30 13:24:39.176 operator_controller.go:180: [info] [region 2] send schedule command: add learner peer 60 on store 5
+2018/11/30 13:24:39.210 cluster_info.go:488: [info] [region 31] Add peer:{id:59 store_id:4 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:39.211 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 59 on store 4
+2018/11/30 13:24:39.275 cluster_info.go:488: [info] [region 2] Add peer:{id:60 store_id:5 is_learner:true }, ConfVer changed from {3} to {4}
+2018/11/30 13:24:39.416 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382565087 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/raft/r/00000000000000000002\" value:\"\\010\\002\\022\\022t\\200\\000\\000\\000\\000\\000\\000\\377\\035\\000\\000\\000\\000\\000\\000\\000\\370\\\"\\004\\010\\004\\020\\016*\\004\\010\\003\\020\\001*\\004\\0109\\020\\004*\\006\\010<\\020\\005\\030\\001\" > > > " took too long (139.824445ms) to execute]
+2018/11/30 13:24:39.416 operator_controller.go:180: [info] [region 2] send schedule command: add learner peer 60 on store 5
+2018/11/30 13:24:41.956 operator_controller.go:180: [info] [region 29] send schedule command: promote learner peer 58 on store 6 to voter
+2018/11/30 13:24:41.956 operator_controller.go:180: [info] [region 29] send schedule command: promote learner peer 58 on store 6 to voter
+2018/11/30 13:24:42.223 cluster_info.go:488: [info] [region 29] Remove peer:{id:58 store_id:6 is_learner:true },Add peer:{id:58 store_id:6 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:42.223 operator_controller.go:67: [info] [region 29] operator finish: makeUpReplica (kind:region,replica, region:29(13,3), createAt:2018-11-30 13:24:35.834414837 +0800 CST m=+34.222899695, currentStep:2, steps:[add learner peer 58 on store 6 promote learner peer 58 on store 6 to voter]) finished
+2018/11/30 13:24:45.255 operator_controller.go:180: [info] [region 2] send schedule command: promote learner peer 60 on store 5 to voter
+2018/11/30 13:24:45.256 operator_controller.go:180: [info] [region 2] send schedule command: promote learner peer 60 on store 5 to voter
+2018/11/30 13:24:45.256 operator_controller.go:180: [info] [region 31] send schedule command: promote learner peer 59 on store 4 to voter
+2018/11/30 13:24:45.256 operator_controller.go:180: [info] [region 31] send schedule command: promote learner peer 59 on store 4 to voter
+2018/11/30 13:24:45.408 cluster_info.go:488: [info] [region 2] Remove peer:{id:60 store_id:5 is_learner:true },Add peer:{id:60 store_id:5 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:45.408 operator_controller.go:67: [info] [region 2] operator finish: makeUpReplica (kind:region,replica, region:2(14,3), createAt:2018-11-30 13:24:39.138787205 +0800 CST m=+37.527272062, currentStep:2, steps:[add learner peer 60 on store 5 promote learner peer 60 on store 5 to voter]) finished
+2018/11/30 13:24:45.442 cluster_info.go:488: [info] [region 31] Remove peer:{id:59 store_id:4 is_learner:true },Add peer:{id:59 store_id:4 }, ConfVer changed from {4} to {5}
+2018/11/30 13:24:45.444 operator_controller.go:67: [info] [region 31] operator finish: makeUpReplica (kind:region,replica, region:31(14,3), createAt:2018-11-30 13:24:38.938632644 +0800 CST m=+37.327117501, currentStep:2, steps:[add learner peer 59 on store 4 promote learner peer 59 on store 4 to voter]) finished
+2018/11/30 13:25:09.336 log.go:84: [warning] etcdserver: [failed to revoke 7ef1676312e45429 ("lease not found")]
+2018/11/30 14:24:01.885 log.go:86: [info] compactor: [Starting auto-compaction at revision 1 (retention: 1h0m0s)]
+2018/11/30 14:24:01.939 log.go:88: [info] mvcc: [store.index: compact 1]
+2018/11/30 14:24:01.939 log.go:86: [info] compactor: [Finished auto-compaction at revision 1]
+2018/11/30 14:24:01.939 log.go:88: [info] mvcc: [finished scheduled compaction at 1 (took 25.239µs)]
+2018/11/30 15:24:01.940 log.go:86: [info] compactor: [Starting auto-compaction at revision 1228 (retention: 1h0m0s)]
+2018/11/30 15:24:01.966 log.go:88: [info] mvcc: [store.index: compact 1228]
+2018/11/30 15:24:01.967 log.go:86: [info] compactor: [Finished auto-compaction at revision 1228]
+2018/11/30 15:24:01.967 log.go:88: [info] mvcc: [finished scheduled compaction at 1228 (took 789.845µs)]
+2018/11/30 16:24:01.968 log.go:86: [info] compactor: [Starting auto-compaction at revision 2434 (retention: 1h0m0s)]
+2018/11/30 16:24:02.002 log.go:88: [info] mvcc: [store.index: compact 2434]
+2018/11/30 16:24:02.002 log.go:86: [info] compactor: [Finished auto-compaction at revision 2434]
+2018/11/30 16:24:02.003 log.go:88: [info] mvcc: [finished scheduled compaction at 2434 (took 761.719µs)]
+2018/11/30 17:13:09.604 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (219.260356ms) to execute]
+2018/11/30 17:24:02.003 log.go:86: [info] compactor: [Starting auto-compaction at revision 3640 (retention: 1h0m0s)]
+2018/11/30 17:24:02.041 log.go:88: [info] mvcc: [store.index: compact 3640]
+2018/11/30 17:24:02.041 log.go:86: [info] compactor: [Finished auto-compaction at revision 3640]
+2018/11/30 17:24:02.041 log.go:88: [info] mvcc: [finished scheduled compaction at 3640 (took 744.958µs)]
+2018/11/30 18:24:02.042 log.go:86: [info] compactor: [Starting auto-compaction at revision 4846 (retention: 1h0m0s)]
+2018/11/30 18:24:02.078 log.go:88: [info] mvcc: [store.index: compact 4846]
+2018/11/30 18:24:02.078 log.go:86: [info] compactor: [Finished auto-compaction at revision 4846]
+2018/11/30 18:24:02.079 log.go:88: [info] mvcc: [finished scheduled compaction at 4846 (took 744.465µs)]
+2018/11/30 19:24:02.079 log.go:86: [info] compactor: [Starting auto-compaction at revision 6052 (retention: 1h0m0s)]
+2018/11/30 19:24:02.115 log.go:88: [info] mvcc: [store.index: compact 6052]
+2018/11/30 19:24:02.115 log.go:86: [info] compactor: [Finished auto-compaction at revision 6052]
+2018/11/30 19:24:02.116 log.go:88: [info] mvcc: [finished scheduled compaction at 6052 (took 751.082µs)]
+2018/11/30 19:29:30.537 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (511.896114ms) to execute]
+2018/11/30 20:24:02.117 log.go:86: [info] compactor: [Starting auto-compaction at revision 7258 (retention: 1h0m0s)]
+2018/11/30 20:24:02.148 log.go:88: [info] mvcc: [store.index: compact 7258]
+2018/11/30 20:24:02.148 log.go:86: [info] compactor: [Finished auto-compaction at revision 7258]
+2018/11/30 20:24:02.149 log.go:88: [info] mvcc: [finished scheduled compaction at 7258 (took 766.491µs)]
+2018/11/30 21:24:02.150 log.go:86: [info] compactor: [Starting auto-compaction at revision 8464 (retention: 1h0m0s)]
+2018/11/30 21:24:02.217 log.go:88: [info] mvcc: [store.index: compact 8464]
+2018/11/30 21:24:02.217 log.go:86: [info] compactor: [Finished auto-compaction at revision 8464]
+2018/11/30 21:24:02.218 log.go:88: [info] mvcc: [finished scheduled compaction at 8464 (took 756.279µs)]
+2018/11/30 22:24:02.218 log.go:86: [info] compactor: [Starting auto-compaction at revision 9670 (retention: 1h0m0s)]
+2018/11/30 22:24:02.304 log.go:88: [info] mvcc: [store.index: compact 9670]
+2018/11/30 22:24:02.304 log.go:86: [info] compactor: [Finished auto-compaction at revision 9670]
+2018/11/30 22:24:02.305 log.go:88: [info] mvcc: [finished scheduled compaction at 9670 (took 754.474µs)]
+2018/11/30 22:32:21.512 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (313.458291ms) to execute]
+2018/11/30 23:24:02.306 log.go:86: [info] compactor: [Starting auto-compaction at revision 10876 (retention: 1h0m0s)]
+2018/11/30 23:24:02.338 log.go:88: [info] mvcc: [store.index: compact 10876]
+2018/11/30 23:24:02.338 log.go:86: [info] compactor: [Finished auto-compaction at revision 10876]
+2018/11/30 23:24:02.339 log.go:88: [info] mvcc: [finished scheduled compaction at 10876 (took 764.535µs)]
+2018/11/30 23:26:13.087 log.go:84: [warning] wal: [sync duration of 1.062165918s, expected less than 1s]
+2018/12/01 00:24:02.339 log.go:86: [info] compactor: [Starting auto-compaction at revision 12082 (retention: 1h0m0s)]
+2018/12/01 00:24:02.443 log.go:88: [info] mvcc: [store.index: compact 12082]
+2018/12/01 00:24:02.443 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382582312 > compaction:<revision:12082 > " took too long (103.844721ms) to execute]
+2018/12/01 00:24:02.443 log.go:86: [info] compactor: [Finished auto-compaction at revision 12082]
+2018/12/01 00:24:02.444 log.go:88: [info] mvcc: [finished scheduled compaction at 12082 (took 741.597µs)]
+2018/12/01 01:24:02.460 log.go:86: [info] compactor: [Starting auto-compaction at revision 13288 (retention: 1h0m0s)]
+2018/12/01 01:24:02.549 log.go:88: [info] mvcc: [store.index: compact 13288]
+2018/12/01 01:24:02.549 log.go:86: [info] compactor: [Finished auto-compaction at revision 13288]
+2018/12/01 01:24:02.862 log.go:88: [info] mvcc: [finished scheduled compaction at 13288 (took 296.365777ms)]
+2018/12/01 01:58:43.078 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (827.240643ms) to execute]
+2018/12/01 02:24:02.551 log.go:86: [info] compactor: [Starting auto-compaction at revision 14494 (retention: 1h0m0s)]
+2018/12/01 02:24:02.587 log.go:88: [info] mvcc: [store.index: compact 14494]
+2018/12/01 02:24:02.587 log.go:86: [info] compactor: [Finished auto-compaction at revision 14494]
+2018/12/01 02:24:02.775 log.go:88: [info] mvcc: [finished scheduled compaction at 14494 (took 188.192345ms)]
+2018/12/01 02:55:32.911 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF1D00000000000000F8} -> {7480000000000000FF2100000000000000F8}, EndKey:{}, Version changed from {14} to {15}
+2018/12/01 02:55:32.911 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:61 start_key:"7480000000000000FF1D00000000000000F8" end_key:"7480000000000000FF2100000000000000F8" region_epoch:<conf_ver:5 version:15 > peers:<id:62 store_id:1 > peers:<id:63 store_id:4 > peers:<id:64 store_id:5 > ]
+2018/12/01 02:55:33.565 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586275 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/raft/r/00000000000000000061\" value:\"\\010=\\022\\022t\\200\\000\\000\\000\\000\\000\\000\\377\\035\\000\\000\\000\\000\\000\\000\\000\\370\\032\\022t\\200\\000\\000\\000\\000\\000\\000\\377!\\000\\000\\000\\000\\000\\000\\000\\370\\\"\\004\\010\\005\\020\\017*\\004\\010>\\020\\001*\\004\\010?\\020\\004*\\004\\010@\\020\\005\" > > > " took too long (236.891774ms) to execute]
+2018/12/01 02:55:33.565 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (173.663826ms) to execute]
+2018/12/01 02:55:33.565 tso.go:137: [warning] clock offset: 440.42695ms, prev: 2018-12-01 02:55:33.125088504 +0800 CST m=+48691.513573395, now: 2018-12-01 02:55:33.565515454 +0800 CST m=+48691.954000312
+2018/12/01 02:55:36.535 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF2100000000000000F8} -> {7480000000000000FF2400000000000000F8}, EndKey:{}, Version changed from {15} to {16}
+2018/12/01 02:55:36.535 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:65 start_key:"7480000000000000FF2100000000000000F8" end_key:"7480000000000000FF2400000000000000F8" region_epoch:<conf_ver:5 version:16 > peers:<id:66 store_id:1 > peers:<id:67 store_id:4 > peers:<id:68 store_id:5 > ]
+2018/12/01 02:55:38.323 operator_controller.go:121: [info] [region 65] add operator: balance-leader (kind:leader,balance, region:65(16,5), createAt:2018-12-01 02:55:38.323472328 +0800 CST m=+48696.711957187, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/12/01 02:55:38.323 operator_controller.go:180: [info] [region 65] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:55:38.601 cluster_info.go:495: [info] [region 65] Leader changed from store {1} to {4}
+2018/12/01 02:55:38.601 operator_controller.go:67: [info] [region 65] operator finish: balance-leader (kind:leader,balance, region:65(16,5), createAt:2018-12-01 02:55:38.323472328 +0800 CST m=+48696.711957187, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/12/01 02:55:39.317 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF2400000000000000F8} -> {7480000000000000FF2700000000000000F8}, EndKey:{}, Version changed from {16} to {17}
+2018/12/01 02:55:39.317 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:69 start_key:"7480000000000000FF2400000000000000F8" end_key:"7480000000000000FF2700000000000000F8" region_epoch:<conf_ver:5 version:17 > peers:<id:70 store_id:1 > peers:<id:71 store_id:4 > peers:<id:72 store_id:5 > ]
+2018/12/01 02:55:41.743 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF2700000000000000F8} -> {7480000000000000FF2A00000000000000F8}, EndKey:{}, Version changed from {17} to {18}
+2018/12/01 02:55:41.743 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:73 start_key:"7480000000000000FF2700000000000000F8" end_key:"7480000000000000FF2A00000000000000F8" region_epoch:<conf_ver:5 version:18 > peers:<id:74 store_id:1 > peers:<id:75 store_id:4 > peers:<id:76 store_id:5 > ]
+2018/12/01 02:55:43.323 operator_controller.go:121: [info] [region 13] add operator: balance-leader (kind:leader,balance, region:13(5,5), createAt:2018-12-01 02:55:43.32351873 +0800 CST m=+48701.712003588, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 02:55:43.323 operator_controller.go:180: [info] [region 13] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 02:55:43.500 cluster_info.go:495: [info] [region 13] Leader changed from store {1} to {6}
+2018/12/01 02:55:43.501 operator_controller.go:67: [info] [region 13] operator finish: balance-leader (kind:leader,balance, region:13(5,5), createAt:2018-12-01 02:55:43.32351873 +0800 CST m=+48701.712003588, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 02:55:44.452 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF2A00000000000000F8} -> {7480000000000000FF2D00000000000000F8}, EndKey:{}, Version changed from {18} to {19}
+2018/12/01 02:55:44.453 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:77 start_key:"7480000000000000FF2A00000000000000F8" end_key:"7480000000000000FF2D00000000000000F8" region_epoch:<conf_ver:5 version:19 > peers:<id:78 store_id:1 > peers:<id:79 store_id:4 > peers:<id:80 store_id:5 > ]
+2018/12/01 02:55:44.614 operator_controller.go:121: [info] [region 31] add operator: balance-leader (kind:leader,balance, region:31(14,5), createAt:2018-12-01 02:55:44.614176894 +0800 CST m=+48703.002661755, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/12/01 02:55:44.614 operator_controller.go:180: [info] [region 31] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:55:45.093 cluster_info.go:495: [info] [region 31] Leader changed from store {1} to {4}
+2018/12/01 02:55:45.093 operator_controller.go:67: [info] [region 31] operator finish: balance-leader (kind:leader,balance, region:31(14,5), createAt:2018-12-01 02:55:44.614176894 +0800 CST m=+48703.002661755, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/12/01 02:55:47.226 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF2D00000000000000F8} -> {7480000000000000FF3000000000000000F8}, EndKey:{}, Version changed from {19} to {20}
+2018/12/01 02:55:47.226 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:81 start_key:"7480000000000000FF2D00000000000000F8" end_key:"7480000000000000FF3000000000000000F8" region_epoch:<conf_ver:5 version:20 > peers:<id:82 store_id:1 > peers:<id:83 store_id:4 > peers:<id:84 store_id:5 > ]
+2018/12/01 02:55:47.860 operator_controller.go:121: [info] [region 77] add operator: balance-leader (kind:leader,balance, region:77(19,5), createAt:2018-12-01 02:55:47.860145479 +0800 CST m=+48706.248630342, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/12/01 02:55:47.860 operator_controller.go:180: [info] [region 77] send schedule command: transfer leader from store 1 to store 5
+2018/12/01 02:55:47.989 cluster_info.go:495: [info] [region 77] Leader changed from store {1} to {5}
+2018/12/01 02:55:47.989 operator_controller.go:67: [info] [region 77] operator finish: balance-leader (kind:leader,balance, region:77(19,5), createAt:2018-12-01 02:55:47.860145479 +0800 CST m=+48706.248630342, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/12/01 02:55:49.749 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF3000000000000000F8} -> {7480000000000000FF3300000000000000F8}, EndKey:{}, Version changed from {20} to {21}
+2018/12/01 02:55:49.750 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:85 start_key:"7480000000000000FF3000000000000000F8" end_key:"7480000000000000FF3300000000000000F8" region_epoch:<conf_ver:5 version:21 > peers:<id:86 store_id:1 > peers:<id:87 store_id:4 > peers:<id:88 store_id:5 > ]
+2018/12/01 02:55:50.006 operator_controller.go:121: [info] [region 29] add operator: balance-leader (kind:leader,balance, region:29(13,5), createAt:2018-12-01 02:55:50.006032493 +0800 CST m=+48708.394517356, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 02:55:50.006 operator_controller.go:180: [info] [region 29] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 02:55:50.248 cluster_info.go:495: [info] [region 29] Leader changed from store {1} to {6}
+2018/12/01 02:55:50.248 operator_controller.go:67: [info] [region 29] operator finish: balance-leader (kind:leader,balance, region:29(13,5), createAt:2018-12-01 02:55:50.006032493 +0800 CST m=+48708.394517356, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 02:55:52.605 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF3300000000000000F8} -> {7480000000000000FF3600000000000000F8}, EndKey:{}, Version changed from {21} to {22}
+2018/12/01 02:55:52.605 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:89 start_key:"7480000000000000FF3300000000000000F8" end_key:"7480000000000000FF3600000000000000F8" region_epoch:<conf_ver:5 version:22 > peers:<id:90 store_id:1 > peers:<id:91 store_id:4 > peers:<id:92 store_id:5 > ]
+2018/12/01 02:55:52.783 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/ddl/all_schema_versions\" range_end:\"/tidb/ddl/all_schema_versiont\" " took too long (101.161424ms) to execute]
+2018/12/01 02:55:55.072 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF3600000000000000F8} -> {7480000000000000FF3900000000000000F8}, EndKey:{}, Version changed from {22} to {23}
+2018/12/01 02:55:55.072 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:93 start_key:"7480000000000000FF3600000000000000F8" end_key:"7480000000000000FF3900000000000000F8" region_epoch:<conf_ver:5 version:23 > peers:<id:94 store_id:1 > peers:<id:95 store_id:4 > peers:<id:96 store_id:5 > ]
+2018/12/01 02:55:55.241 operator_controller.go:121: [info] [region 93] add operator: balance-leader (kind:leader,balance, region:93(23,5), createAt:2018-12-01 02:55:55.241712365 +0800 CST m=+48713.630197223, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/12/01 02:55:55.241 operator_controller.go:180: [info] [region 93] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:55:55.339 operator_controller.go:180: [info] [region 93] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:55:55.408 operator_controller.go:180: [info] [region 93] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:55:55.409 operator_controller.go:180: [info] [region 93] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:55:55.520 cluster_info.go:495: [info] [region 93] Leader changed from store {1} to {4}
+2018/12/01 02:55:55.520 operator_controller.go:67: [info] [region 93] operator finish: balance-leader (kind:leader,balance, region:93(23,5), createAt:2018-12-01 02:55:55.241712365 +0800 CST m=+48713.630197223, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/12/01 02:55:58.005 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF3900000000000000F8} -> {7480000000000000FF3C00000000000000F8}, EndKey:{}, Version changed from {23} to {24}
+2018/12/01 02:55:58.005 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:97 start_key:"7480000000000000FF3900000000000000F8" end_key:"7480000000000000FF3C00000000000000F8" region_epoch:<conf_ver:5 version:24 > peers:<id:98 store_id:1 > peers:<id:99 store_id:4 > peers:<id:100 store_id:5 > ]
+2018/12/01 02:55:58.378 operator_controller.go:121: [info] [region 9] add operator: balance-leader (kind:leader,balance, region:9(3,5), createAt:2018-12-01 02:55:58.378186427 +0800 CST m=+48716.766671286, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/12/01 02:55:58.378 operator_controller.go:180: [info] [region 9] send schedule command: transfer leader from store 1 to store 5
+2018/12/01 02:55:58.823 cluster_info.go:495: [info] [region 9] Leader changed from store {1} to {5}
+2018/12/01 02:55:58.823 operator_controller.go:67: [info] [region 9] operator finish: balance-leader (kind:leader,balance, region:9(3,5), createAt:2018-12-01 02:55:58.378186427 +0800 CST m=+48716.766671286, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/12/01 02:56:01.323 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF3C00000000000000F8} -> {7480000000000000FF3F00000000000000F8}, EndKey:{}, Version changed from {24} to {25}
+2018/12/01 02:56:01.324 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:101 start_key:"7480000000000000FF3C00000000000000F8" end_key:"7480000000000000FF3F00000000000000F8" region_epoch:<conf_ver:5 version:25 > peers:<id:102 store_id:1 > peers:<id:103 store_id:4 > peers:<id:104 store_id:5 > ]
+2018/12/01 02:56:01.742 operator_controller.go:121: [info] [region 27] add operator: balance-leader (kind:leader,balance, region:27(12,5), createAt:2018-12-01 02:56:01.742081549 +0800 CST m=+48720.130566406, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 02:56:01.742 operator_controller.go:180: [info] [region 27] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 02:56:02.432 cluster_info.go:495: [info] [region 27] Leader changed from store {1} to {6}
+2018/12/01 02:56:02.432 operator_controller.go:67: [info] [region 27] operator finish: balance-leader (kind:leader,balance, region:27(12,5), createAt:2018-12-01 02:56:01.742081549 +0800 CST m=+48720.130566406, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 02:56:05.432 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF3F00000000000000F8} -> {7480000000000000FF4200000000000000F8}, EndKey:{}, Version changed from {25} to {26}
+2018/12/01 02:56:05.432 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:105 start_key:"7480000000000000FF3F00000000000000F8" end_key:"7480000000000000FF4200000000000000F8" region_epoch:<conf_ver:5 version:26 > peers:<id:106 store_id:1 > peers:<id:107 store_id:4 > peers:<id:108 store_id:5 > ]
+2018/12/01 02:56:08.774 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF4200000000000000F8} -> {7480000000000000FF4500000000000000F8}, EndKey:{}, Version changed from {26} to {27}
+2018/12/01 02:56:08.774 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:109 start_key:"7480000000000000FF4200000000000000F8" end_key:"7480000000000000FF4500000000000000F8" region_epoch:<conf_ver:5 version:27 > peers:<id:110 store_id:1 > peers:<id:111 store_id:4 > peers:<id:112 store_id:5 > ]
+2018/12/01 02:56:08.911 operator_controller.go:121: [info] [region 105] add operator: balance-leader (kind:leader,balance, region:105(26,5), createAt:2018-12-01 02:56:08.911233201 +0800 CST m=+48727.299718062, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/12/01 02:56:08.911 operator_controller.go:180: [info] [region 105] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:56:09.268 cluster_info.go:495: [info] [region 105] Leader changed from store {1} to {4}
+2018/12/01 02:56:09.269 operator_controller.go:67: [info] [region 105] operator finish: balance-leader (kind:leader,balance, region:105(26,5), createAt:2018-12-01 02:56:08.911233201 +0800 CST m=+48727.299718062, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/12/01 02:56:12.045 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF4500000000000000F8} -> {7480000000000000FF4800000000000000F8}, EndKey:{}, Version changed from {27} to {28}
+2018/12/01 02:56:12.045 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:113 start_key:"7480000000000000FF4500000000000000F8" end_key:"7480000000000000FF4800000000000000F8" region_epoch:<conf_ver:5 version:28 > peers:<id:114 store_id:1 > peers:<id:115 store_id:4 > peers:<id:116 store_id:5 > ]
+2018/12/01 02:56:12.486 operator_controller.go:121: [info] [region 11] add operator: balance-leader (kind:leader,balance, region:11(4,5), createAt:2018-12-01 02:56:12.486430057 +0800 CST m=+48730.874914915, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 02:56:12.486 operator_controller.go:180: [info] [region 11] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 02:56:12.650 cluster_info.go:495: [info] [region 11] Leader changed from store {1} to {6}
+2018/12/01 02:56:12.650 operator_controller.go:67: [info] [region 11] operator finish: balance-leader (kind:leader,balance, region:11(4,5), createAt:2018-12-01 02:56:12.486430057 +0800 CST m=+48730.874914915, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 02:56:15.449 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF4800000000000000F8} -> {7480000000000000FF4B00000000000000F8}, EndKey:{}, Version changed from {28} to {29}
+2018/12/01 02:56:15.449 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:117 start_key:"7480000000000000FF4800000000000000F8" end_key:"7480000000000000FF4B00000000000000F8" region_epoch:<conf_ver:5 version:29 > peers:<id:118 store_id:1 > peers:<id:119 store_id:4 > peers:<id:120 store_id:5 > ]
+2018/12/01 02:56:15.851 operator_controller.go:121: [info] [region 61] add operator: balance-leader (kind:leader,balance, region:61(15,5), createAt:2018-12-01 02:56:15.851058962 +0800 CST m=+48734.239543831, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/12/01 02:56:15.851 operator_controller.go:180: [info] [region 61] send schedule command: transfer leader from store 1 to store 5
+2018/12/01 02:56:16.108 cluster_info.go:495: [info] [region 61] Leader changed from store {1} to {5}
+2018/12/01 02:56:16.108 operator_controller.go:67: [info] [region 61] operator finish: balance-leader (kind:leader,balance, region:61(15,5), createAt:2018-12-01 02:56:15.851058962 +0800 CST m=+48734.239543831, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/12/01 02:56:19.713 cluster_info.go:484: [info] [region 2] StartKey Changed:{7480000000000000FF4B00000000000000F8} -> {7480000000000000FF4E00000000000000F8}, EndKey:{}, Version changed from {29} to {30}
+2018/12/01 02:56:19.713 cluster_worker.go:198: [info] [region 2] region split, generate 1 new regions: [id:121 start_key:"7480000000000000FF4B00000000000000F8" end_key:"7480000000000000FF4E00000000000000F8" region_epoch:<conf_ver:5 version:30 > peers:<id:122 store_id:1 > peers:<id:123 store_id:4 > peers:<id:124 store_id:5 > ]
+2018/12/01 02:57:14.923 operator_controller.go:121: [info] [region 101] add operator: balance-leader (kind:leader,balance, region:101(25,5), createAt:2018-12-01 02:57:14.780133204 +0800 CST m=+48793.168618063, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/12/01 02:57:15.011 operator_controller.go:180: [info] [region 101] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:57:17.132 cluster_info.go:495: [info] [region 101] Leader changed from store {1} to {4}
+2018/12/01 02:57:17.132 operator_controller.go:67: [info] [region 101] operator finish: balance-leader (kind:leader,balance, region:101(25,5), createAt:2018-12-01 02:57:14.780133204 +0800 CST m=+48793.168618063, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/12/01 02:57:19.780 operator_controller.go:121: [info] [region 25] add operator: balance-leader (kind:leader,balance, region:25(11,5), createAt:2018-12-01 02:57:19.780255686 +0800 CST m=+48798.168740539, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 02:57:19.780 operator_controller.go:180: [info] [region 25] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 02:57:19.800 operator_controller.go:121: [info] [region 17] add operator: balance-leader (kind:leader,balance, region:17(7,5), createAt:2018-12-01 02:57:19.800453394 +0800 CST m=+48798.188938248, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 02:57:19.800 operator_controller.go:180: [info] [region 17] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 02:57:20.722 cluster_info.go:495: [info] [region 17] Leader changed from store {1} to {6}
+2018/12/01 02:57:20.722 operator_controller.go:67: [info] [region 17] operator finish: balance-leader (kind:leader,balance, region:17(7,5), createAt:2018-12-01 02:57:19.800453394 +0800 CST m=+48798.188938248, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 02:57:20.832 cluster_info.go:495: [info] [region 25] Leader changed from store {1} to {6}
+2018/12/01 02:57:20.832 operator_controller.go:67: [info] [region 25] operator finish: balance-leader (kind:leader,balance, region:25(11,5), createAt:2018-12-01 02:57:19.780255686 +0800 CST m=+48798.168740539, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 02:58:03.467 tso.go:137: [warning] clock offset: 342.224601ms, prev: 2018-12-01 02:58:03.125093634 +0800 CST m=+48841.513578526, now: 2018-12-01 02:58:03.467318235 +0800 CST m=+48841.855803102
+2018/12/01 02:58:13.928 operator_controller.go:121: [info] [region 101] add operator: balance-leader (kind:leader,balance, region:101(25,5), createAt:2018-12-01 02:58:13.928143308 +0800 CST m=+48852.316628165, currentStep:0, steps:[transfer leader from store 4 to store 5]) 
+2018/12/01 02:58:13.928 operator_controller.go:180: [info] [region 101] send schedule command: transfer leader from store 4 to store 5
+2018/12/01 02:58:15.199 cluster_info.go:495: [info] [region 101] Leader changed from store {4} to {5}
+2018/12/01 02:58:15.201 operator_controller.go:67: [info] [region 101] operator finish: balance-leader (kind:leader,balance, region:101(25,5), createAt:2018-12-01 02:58:13.928143308 +0800 CST m=+48852.316628165, currentStep:1, steps:[transfer leader from store 4 to store 5]) finished
+2018/12/01 02:58:18.928 operator_controller.go:121: [info] [region 15] add operator: balance-leader (kind:leader,balance, region:15(6,5), createAt:2018-12-01 02:58:18.928020205 +0800 CST m=+48857.316505062, currentStep:0, steps:[transfer leader from store 4 to store 5]) 
+2018/12/01 02:58:18.928 operator_controller.go:180: [info] [region 15] send schedule command: transfer leader from store 4 to store 5
+2018/12/01 02:58:18.938 operator_controller.go:121: [info] [region 31] add operator: balance-leader (kind:leader,balance, region:31(14,5), createAt:2018-12-01 02:58:18.938086903 +0800 CST m=+48857.326571760, currentStep:0, steps:[transfer leader from store 4 to store 5]) 
+2018/12/01 02:58:18.938 operator_controller.go:180: [info] [region 31] send schedule command: transfer leader from store 4 to store 5
+2018/12/01 02:58:18.948 operator_controller.go:121: [info] [region 93] add operator: balance-leader (kind:leader,balance, region:93(23,5), createAt:2018-12-01 02:58:18.94818415 +0800 CST m=+48857.336669006, currentStep:0, steps:[transfer leader from store 4 to store 5]) 
+2018/12/01 02:58:18.948 operator_controller.go:180: [info] [region 93] send schedule command: transfer leader from store 4 to store 5
+2018/12/01 02:58:18.968 operator_controller.go:121: [info] [region 105] add operator: balance-leader (kind:leader,balance, region:105(26,5), createAt:2018-12-01 02:58:18.968443594 +0800 CST m=+48857.356928452, currentStep:0, steps:[transfer leader from store 4 to store 5]) 
+2018/12/01 02:58:18.968 operator_controller.go:180: [info] [region 105] send schedule command: transfer leader from store 4 to store 5
+2018/12/01 02:58:19.720 cluster_info.go:495: [info] [region 31] Leader changed from store {4} to {5}
+2018/12/01 02:58:19.720 operator_controller.go:67: [info] [region 31] operator finish: balance-leader (kind:leader,balance, region:31(14,5), createAt:2018-12-01 02:58:18.938086903 +0800 CST m=+48857.326571760, currentStep:1, steps:[transfer leader from store 4 to store 5]) finished
+2018/12/01 02:58:19.721 cluster_info.go:495: [info] [region 15] Leader changed from store {4} to {5}
+2018/12/01 02:58:19.721 operator_controller.go:67: [info] [region 15] operator finish: balance-leader (kind:leader,balance, region:15(6,5), createAt:2018-12-01 02:58:18.928020205 +0800 CST m=+48857.316505062, currentStep:1, steps:[transfer leader from store 4 to store 5]) finished
+2018/12/01 02:58:19.721 cluster_info.go:495: [info] [region 105] Leader changed from store {4} to {5}
+2018/12/01 02:58:19.721 operator_controller.go:67: [info] [region 105] operator finish: balance-leader (kind:leader,balance, region:105(26,5), createAt:2018-12-01 02:58:18.968443594 +0800 CST m=+48857.356928452, currentStep:1, steps:[transfer leader from store 4 to store 5]) finished
+2018/12/01 02:58:20.354 cluster_info.go:495: [info] [region 93] Leader changed from store {4} to {5}
+2018/12/01 02:58:20.354 operator_controller.go:67: [info] [region 93] operator finish: balance-leader (kind:leader,balance, region:93(23,5), createAt:2018-12-01 02:58:18.94818415 +0800 CST m=+48857.336669006, currentStep:1, steps:[transfer leader from store 4 to store 5]) finished
+2018/12/01 02:59:14.157 operator_controller.go:121: [info] [region 101] add operator: moveHotWriteRegion (kind:region,hotRegion, region:101(25,5), createAt:2018-12-01 02:59:14.102099808 +0800 CST m=+48912.490584693, currentStep:0, steps:[add learner peer 125 on store 6 promote learner peer 125 on store 6 to voter remove peer on store 1]) 
+2018/12/01 02:59:14.157 operator_controller.go:180: [info] [region 101] send schedule command: add learner peer 125 on store 6
+2018/12/01 02:59:18.447 cluster_info.go:488: [info] [region 101] Add peer:{id:125 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 02:59:18.608 operator_controller.go:180: [info] [region 101] send schedule command: add learner peer 125 on store 6
+2018/12/01 02:59:31.666 operator_controller.go:180: [info] [region 101] send schedule command: promote learner peer 125 on store 6 to voter
+2018/12/01 02:59:31.667 operator_controller.go:180: [info] [region 101] send schedule command: promote learner peer 125 on store 6 to voter
+2018/12/01 02:59:33.603 cluster_info.go:488: [info] [region 101] Remove peer:{id:125 store_id:6 is_learner:true },Add peer:{id:125 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 02:59:33.604 operator_controller.go:180: [info] [region 101] send schedule command: remove peer on store 1
+2018/12/01 02:59:33.605 operator_controller.go:180: [info] [region 101] send schedule command: remove peer on store 1
+2018/12/01 02:59:34.837 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (1.094083535s) to execute]
+2018/12/01 02:59:43.714 operator_controller.go:121: [info] [region 77] add operator: balance-region (kind:region,balance, region:77(19,5), createAt:2018-12-01 02:59:43.71480635 +0800 CST m=+48942.103291205, currentStep:0, steps:[add learner peer 126 on store 6 promote learner peer 126 on store 6 to voter remove peer on store 1]) 
+2018/12/01 02:59:43.714 operator_controller.go:180: [info] [region 77] send schedule command: add learner peer 126 on store 6
+2018/12/01 02:59:48.714 operator_controller.go:121: [info] [region 15] add operator: balance-region (kind:region,balance, region:15(6,5), createAt:2018-12-01 02:59:48.714844575 +0800 CST m=+48947.103329432, currentStep:0, steps:[add learner peer 127 on store 6 promote learner peer 127 on store 6 to voter remove peer on store 1]) 
+2018/12/01 02:59:48.714 operator_controller.go:180: [info] [region 15] send schedule command: add learner peer 127 on store 6
+2018/12/01 02:59:48.734 operator_controller.go:121: [info] [region 61] add operator: balance-region (kind:region,balance, region:61(15,5), createAt:2018-12-01 02:59:48.734979161 +0800 CST m=+48947.123464017, currentStep:0, steps:[add learner peer 129 on store 6 promote learner peer 129 on store 6 to voter remove peer on store 1]) 
+2018/12/01 02:59:48.735 operator_controller.go:180: [info] [region 61] send schedule command: add learner peer 129 on store 6
+2018/12/01 02:59:52.517 cluster_info.go:488: [info] [region 101] Remove peer:{id:102 store_id:1 }, ConfVer changed from {7} to {8}
+2018/12/01 02:59:52.517 operator_controller.go:67: [info] [region 101] operator finish: moveHotWriteRegion (kind:region,hotRegion, region:101(25,5), createAt:2018-12-01 02:59:14.102099808 +0800 CST m=+48912.490584693, currentStep:3, steps:[add learner peer 125 on store 6 promote learner peer 125 on store 6 to voter remove peer on store 1]) finished
+2018/12/01 02:59:52.519 operator_controller.go:121: [info] [region 81] add operator: balance-region (kind:region,balance, region:81(20,5), createAt:2018-12-01 02:59:52.51914222 +0800 CST m=+48950.907627086, currentStep:0, steps:[add learner peer 130 on store 6 promote learner peer 130 on store 6 to voter remove peer on store 4]) 
+2018/12/01 02:59:52.519 operator_controller.go:180: [info] [region 81] send schedule command: add learner peer 130 on store 6
+2018/12/01 02:59:52.525 operator_controller.go:121: [info] [region 105] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:105(26,5), createAt:2018-12-01 02:59:52.525971741 +0800 CST m=+48950.914456597, currentStep:0, steps:[transfer leader from store 5 to store 1]) 
+2018/12/01 02:59:52.529 operator_controller.go:180: [info] [region 105] send schedule command: transfer leader from store 5 to store 1
+2018/12/01 02:59:53.518 cluster_info.go:495: [info] [region 105] Leader changed from store {5} to {1}
+2018/12/01 02:59:53.518 operator_controller.go:67: [info] [region 105] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:105(26,5), createAt:2018-12-01 02:59:52.525971741 +0800 CST m=+48950.914456597, currentStep:1, steps:[transfer leader from store 5 to store 1]) finished
+2018/12/01 02:59:56.997 cluster_info.go:488: [info] [region 77] Add peer:{id:126 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 02:59:57.082 operator_controller.go:180: [info] [region 77] send schedule command: add learner peer 126 on store 6
+2018/12/01 02:59:57.333 tso.go:137: [warning] clock offset: 158.553776ms, prev: 2018-12-01 02:59:57.175093854 +0800 CST m=+48955.563578718, now: 2018-12-01 02:59:57.33364763 +0800 CST m=+48955.722132499
+2018/12/01 02:59:57.617 operator_controller.go:121: [info] [region 101] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:101(25,8), createAt:2018-12-01 02:59:57.617609619 +0800 CST m=+48956.006094476, currentStep:0, steps:[transfer leader from store 5 to store 6]) 
+2018/12/01 02:59:57.617 operator_controller.go:180: [info] [region 101] send schedule command: transfer leader from store 5 to store 6
+2018/12/01 02:59:58.133 cluster_info.go:495: [info] [region 101] Leader changed from store {5} to {6}
+2018/12/01 02:59:58.133 operator_controller.go:67: [info] [region 101] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:101(25,8), createAt:2018-12-01 02:59:57.617609619 +0800 CST m=+48956.006094476, currentStep:1, steps:[transfer leader from store 5 to store 6]) finished
+2018/12/01 02:59:59.680 cluster_info.go:488: [info] [region 81] Add peer:{id:130 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 02:59:59.682 operator_controller.go:180: [info] [region 81] send schedule command: add learner peer 130 on store 6
+2018/12/01 02:59:59.720 operator_controller.go:121: [info] [region 105] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:105(26,5), createAt:2018-12-01 02:59:59.720080844 +0800 CST m=+48958.108565701, currentStep:0, steps:[transfer leader from store 1 to store 4]) 
+2018/12/01 02:59:59.720 operator_controller.go:180: [info] [region 105] send schedule command: transfer leader from store 1 to store 4
+2018/12/01 02:59:59.935 cluster_info.go:488: [info] [region 61] Add peer:{id:129 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 02:59:59.937 operator_controller.go:180: [info] [region 61] send schedule command: add learner peer 129 on store 6
+2018/12/01 02:59:59.938 cluster_info.go:488: [info] [region 15] Add peer:{id:127 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:00.198 operator_controller.go:180: [info] [region 15] send schedule command: add learner peer 127 on store 6
+2018/12/01 03:00:00.946 cluster_info.go:495: [info] [region 105] Leader changed from store {1} to {4}
+2018/12/01 03:00:00.946 operator_controller.go:67: [info] [region 105] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:105(26,5), createAt:2018-12-01 02:59:59.720080844 +0800 CST m=+48958.108565701, currentStep:1, steps:[transfer leader from store 1 to store 4]) finished
+2018/12/01 03:00:06.611 operator_controller.go:180: [info] [region 77] send schedule command: promote learner peer 126 on store 6 to voter
+2018/12/01 03:00:06.935 operator_controller.go:180: [info] [region 77] send schedule command: promote learner peer 126 on store 6 to voter
+2018/12/01 03:00:08.091 operator_controller.go:180: [info] [region 61] send schedule command: promote learner peer 129 on store 6 to voter
+2018/12/01 03:00:08.704 operator_controller.go:180: [info] [region 61] send schedule command: promote learner peer 129 on store 6 to voter
+2018/12/01 03:00:09.117 cluster_info.go:488: [info] [region 77] Remove peer:{id:126 store_id:6 is_learner:true },Add peer:{id:126 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:09.118 operator_controller.go:180: [info] [region 77] send schedule command: remove peer on store 1
+2018/12/01 03:00:10.369 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586671 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374\\010\\325m\\013\\337\" > > > " took too long (134.594844ms) to execute]
+2018/12/01 03:00:10.537 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 127 on store 6 to voter
+2018/12/01 03:00:10.538 operator_controller.go:180: [info] [region 77] send schedule command: remove peer on store 1
+2018/12/01 03:00:10.538 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 127 on store 6 to voter
+2018/12/01 03:00:11.177 operator_controller.go:180: [info] [region 61] send schedule command: promote learner peer 129 on store 6 to voter
+2018/12/01 03:00:11.177 operator_controller.go:180: [info] [region 77] send schedule command: remove peer on store 1
+2018/12/01 03:00:11.178 operator_controller.go:180: [info] [region 15] send schedule command: promote learner peer 127 on store 6 to voter
+2018/12/01 03:00:11.782 operator_controller.go:180: [info] [region 81] send schedule command: add learner peer 130 on store 6
+2018/12/01 03:00:11.783 operator_controller.go:121: [info] [region 109] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:109(27,5), createAt:2018-12-01 03:00:11.783058023 +0800 CST m=+48970.171542887, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/12/01 03:00:11.783 operator_controller.go:180: [info] [region 109] send schedule command: transfer leader from store 1 to store 5
+2018/12/01 03:00:11.878 util.go:214: [warning] txn runs too slow, resp: &{cluster_id:2374373632313605856 member_id:5059191774930042609 revision:16748 raft_term:2  true [response_put:<header:<revision:16748 > > ]}, err: <nil>, cost: 1.194834631s
+2018/12/01 03:00:11.878 tso.go:137: [warning] clock offset: 2.702973733s, prev: 2018-12-01 03:00:09.175158239 +0800 CST m=+48967.563643147, now: 2018-12-01 03:00:11.878131972 +0800 CST m=+48970.266616860
+2018/12/01 03:00:13.435 cluster_info.go:495: [info] [region 109] Leader changed from store {1} to {5}
+2018/12/01 03:00:13.435 operator_controller.go:67: [info] [region 109] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:109(27,5), createAt:2018-12-01 03:00:11.783058023 +0800 CST m=+48970.171542887, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/12/01 03:00:14.290 operator_controller.go:180: [info] [region 81] send schedule command: promote learner peer 130 on store 6 to voter
+2018/12/01 03:00:14.417 operator_controller.go:180: [info] [region 81] send schedule command: promote learner peer 130 on store 6 to voter
+2018/12/01 03:00:14.840 operator_controller.go:121: [info] [region 73] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:73(18,5), createAt:2018-12-01 03:00:14.840930213 +0800 CST m=+48973.229415069, currentStep:0, steps:[transfer leader from store 1 to store 5]) 
+2018/12/01 03:00:14.840 operator_controller.go:180: [info] [region 73] send schedule command: transfer leader from store 1 to store 5
+2018/12/01 03:00:15.503 cluster_info.go:495: [info] [region 73] Leader changed from store {1} to {5}
+2018/12/01 03:00:15.503 operator_controller.go:67: [info] [region 73] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:73(18,5), createAt:2018-12-01 03:00:14.840930213 +0800 CST m=+48973.229415069, currentStep:1, steps:[transfer leader from store 1 to store 5]) finished
+2018/12/01 03:00:17.619 cluster_info.go:488: [info] [region 61] Remove peer:{id:129 store_id:6 is_learner:true },Add peer:{id:129 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:17.619 operator_controller.go:180: [info] [region 61] send schedule command: remove peer on store 1
+2018/12/01 03:00:17.843 cluster_info.go:488: [info] [region 77] Remove peer:{id:78 store_id:1 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:17.844 operator_controller.go:67: [info] [region 77] operator finish: balance-region (kind:region,balance, region:77(19,5), createAt:2018-12-01 02:59:43.71480635 +0800 CST m=+48942.103291205, currentStep:3, steps:[add learner peer 126 on store 6 promote learner peer 126 on store 6 to voter remove peer on store 1]) finished
+2018/12/01 03:00:17.850 operator_controller.go:121: [info] [region 69] add operator: balance-region (kind:region,balance, region:69(17,5), createAt:2018-12-01 03:00:17.850434556 +0800 CST m=+48976.238919418, currentStep:0, steps:[add learner peer 131 on store 6 promote learner peer 131 on store 6 to voter remove peer on store 4]) 
+2018/12/01 03:00:17.850 operator_controller.go:180: [info] [region 69] send schedule command: add learner peer 131 on store 6
+2018/12/01 03:00:18.195 operator_controller.go:180: [info] [region 61] send schedule command: remove peer on store 1
+2018/12/01 03:00:18.536 cluster_info.go:488: [info] [region 15] Remove peer:{id:127 store_id:6 is_learner:true },Add peer:{id:127 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:18.537 operator_controller.go:180: [info] [region 15] send schedule command: remove peer on store 1
+2018/12/01 03:00:18.902 operator_controller.go:180: [info] [region 15] send schedule command: remove peer on store 1
+2018/12/01 03:00:22.341 cluster_info.go:488: [info] [region 61] Remove peer:{id:62 store_id:1 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:22.341 operator_controller.go:67: [info] [region 61] operator finish: balance-region (kind:region,balance, region:61(15,5), createAt:2018-12-01 02:59:48.734979161 +0800 CST m=+48947.123464017, currentStep:3, steps:[add learner peer 129 on store 6 promote learner peer 129 on store 6 to voter remove peer on store 1]) finished
+2018/12/01 03:00:22.351 operator_controller.go:121: [info] [region 93] add operator: balance-region (kind:region,balance, region:93(23,5), createAt:2018-12-01 03:00:22.351458708 +0800 CST m=+48980.739943563, currentStep:0, steps:[add learner peer 132 on store 6 promote learner peer 132 on store 6 to voter remove peer on store 4]) 
+2018/12/01 03:00:22.351 operator_controller.go:180: [info] [region 93] send schedule command: add learner peer 132 on store 6
+2018/12/01 03:00:23.276 cluster_info.go:488: [info] [region 15] Remove peer:{id:16 store_id:1 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:23.276 operator_controller.go:67: [info] [region 15] operator finish: balance-region (kind:region,balance, region:15(6,5), createAt:2018-12-01 02:59:48.714844575 +0800 CST m=+48947.103329432, currentStep:3, steps:[add learner peer 127 on store 6 promote learner peer 127 on store 6 to voter remove peer on store 1]) finished
+2018/12/01 03:00:23.282 operator_controller.go:121: [info] [region 9] add operator: balance-region (kind:region,balance, region:9(3,5), createAt:2018-12-01 03:00:23.282295462 +0800 CST m=+48981.670780325, currentStep:0, steps:[add learner peer 133 on store 6 promote learner peer 133 on store 6 to voter remove peer on store 4]) 
+2018/12/01 03:00:23.282 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 133 on store 6
+2018/12/01 03:00:24.044 cluster_info.go:488: [info] [region 93] Add peer:{id:132 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:24.046 operator_controller.go:180: [info] [region 93] send schedule command: add learner peer 132 on store 6
+2018/12/01 03:00:24.305 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586683 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374\\014S~\\014\\033\" > > > " took too long (129.935154ms) to execute]
+2018/12/01 03:00:25.615 cluster_info.go:488: [info] [region 9] Add peer:{id:133 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:25.615 operator_controller.go:180: [info] [region 9] send schedule command: add learner peer 133 on store 6
+2018/12/01 03:00:30.620 cluster_info.go:488: [info] [region 81] Remove peer:{id:130 store_id:6 is_learner:true },Add peer:{id:130 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:30.620 operator_controller.go:180: [info] [region 81] send schedule command: remove peer on store 4
+2018/12/01 03:00:31.396 cluster_info.go:488: [info] [region 69] Add peer:{id:131 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:31.397 operator_controller.go:180: [info] [region 69] send schedule command: add learner peer 131 on store 6
+2018/12/01 03:00:31.927 operator_controller.go:180: [info] [region 81] send schedule command: remove peer on store 4
+2018/12/01 03:00:34.137 operator_controller.go:180: [info] [region 9] send schedule command: promote learner peer 133 on store 6 to voter
+2018/12/01 03:00:34.587 operator_controller.go:180: [info] [region 9] send schedule command: promote learner peer 133 on store 6 to voter
+2018/12/01 03:00:35.280 operator_controller.go:180: [info] [region 93] send schedule command: promote learner peer 132 on store 6 to voter
+2018/12/01 03:00:35.282 operator_controller.go:180: [info] [region 93] send schedule command: promote learner peer 132 on store 6 to voter
+2018/12/01 03:00:38.277 cluster_info.go:488: [info] [region 81] Remove peer:{id:83 store_id:4 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:38.279 operator_controller.go:67: [info] [region 81] operator finish: balance-region (kind:region,balance, region:81(20,5), createAt:2018-12-01 02:59:52.51914222 +0800 CST m=+48950.907627086, currentStep:3, steps:[add learner peer 130 on store 6 promote learner peer 130 on store 6 to voter remove peer on store 4]) finished
+2018/12/01 03:00:38.279 operator_controller.go:121: [info] [region 85] add operator: balance-region (kind:region,balance, region:85(21,5), createAt:2018-12-01 03:00:38.279273398 +0800 CST m=+48996.667758255, currentStep:0, steps:[add learner peer 134 on store 6 promote learner peer 134 on store 6 to voter remove peer on store 5]) 
+2018/12/01 03:00:38.279 operator_controller.go:180: [info] [region 85] send schedule command: add learner peer 134 on store 6
+2018/12/01 03:00:38.506 operator_controller.go:180: [info] [region 69] send schedule command: promote learner peer 131 on store 6 to voter
+2018/12/01 03:00:38.506 operator_controller.go:180: [info] [region 69] send schedule command: promote learner peer 131 on store 6 to voter
+2018/12/01 03:00:39.181 cluster_info.go:488: [info] [region 9] Remove peer:{id:133 store_id:6 is_learner:true },Add peer:{id:133 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:39.390 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586695 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/raft/r/00000000000000000009\" value:\"\\010\\t\\022\\022t\\200\\000\\000\\000\\000\\000\\000\\377\\005\\000\\000\\000\\000\\000\\000\\000\\370\\032\\022t\\200\\000\\000\\000\\000\\000\\000\\377\\007\\000\\000\\000\\000\\000\\000\\000\\370\\\"\\004\\010\\007\\020\\003*\\004\\010\\n\\020\\001*\\004\\010\\\"\\020\\004*\\004\\010/\\020\\005*\\005\\010\\205\\001\\020\\006\" > > > " took too long (150.422121ms) to execute]
+2018/12/01 03:00:39.391 operator_controller.go:180: [info] [region 9] send schedule command: remove peer on store 4
+2018/12/01 03:00:39.391 operator_controller.go:180: [info] [region 9] send schedule command: remove peer on store 4
+2018/12/01 03:00:39.719 cluster_info.go:488: [info] [region 85] Add peer:{id:134 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:39.720 operator_controller.go:180: [info] [region 85] send schedule command: add learner peer 134 on store 6
+2018/12/01 03:00:39.720 cluster_info.go:488: [info] [region 69] Remove peer:{id:131 store_id:6 is_learner:true },Add peer:{id:131 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:40.510 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586697 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/raft/r/00000000000000000069\" value:\"\\010E\\022\\022t\\200\\000\\000\\000\\000\\000\\000\\377$\\000\\000\\000\\000\\000\\000\\000\\370\\032\\022t\\200\\000\\000\\000\\000\\000\\000\\377'\\000\\000\\000\\000\\000\\000\\000\\370\\\"\\004\\010\\007\\020\\021*\\004\\010F\\020\\001*\\004\\010G\\020\\004*\\004\\010H\\020\\005*\\005\\010\\203\\001\\020\\006\" > > > " took too long (574.890984ms) to execute]
+2018/12/01 03:00:40.512 operator_controller.go:180: [info] [region 69] send schedule command: remove peer on store 4
+2018/12/01 03:00:40.688 operator_controller.go:180: [info] [region 69] send schedule command: remove peer on store 4
+2018/12/01 03:00:42.062 cluster_info.go:488: [info] [region 69] Remove peer:{id:71 store_id:4 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:42.062 operator_controller.go:67: [info] [region 69] operator finish: balance-region (kind:region,balance, region:69(17,5), createAt:2018-12-01 03:00:17.850434556 +0800 CST m=+48976.238919418, currentStep:3, steps:[add learner peer 131 on store 6 promote learner peer 131 on store 6 to voter remove peer on store 4]) finished
+2018/12/01 03:00:42.064 operator_controller.go:121: [info] [region 97] add operator: balance-region (kind:region,balance, region:97(24,5), createAt:2018-12-01 03:00:42.064633713 +0800 CST m=+49000.453118573, currentStep:0, steps:[add learner peer 135 on store 6 promote learner peer 135 on store 6 to voter remove peer on store 5]) 
+2018/12/01 03:00:42.064 operator_controller.go:180: [info] [region 97] send schedule command: add learner peer 135 on store 6
+2018/12/01 03:00:42.378 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586699 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374\\020\\204aS\\177\" > > > " took too long (117.351457ms) to execute]
+2018/12/01 03:00:42.378 tso.go:137: [warning] clock offset: 203.400874ms, prev: 2018-12-01 03:00:42.175174015 +0800 CST m=+49000.563658926, now: 2018-12-01 03:00:42.378574889 +0800 CST m=+49000.767059752
+2018/12/01 03:00:43.278 cluster_info.go:488: [info] [region 97] Add peer:{id:135 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:43.279 operator_controller.go:180: [info] [region 97] send schedule command: add learner peer 135 on store 6
+2018/12/01 03:00:49.086 cluster_info.go:488: [info] [region 93] Remove peer:{id:132 store_id:6 is_learner:true },Add peer:{id:132 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:49.087 operator_controller.go:180: [info] [region 93] send schedule command: remove peer on store 4
+2018/12/01 03:00:49.985 operator_controller.go:180: [info] [region 93] send schedule command: remove peer on store 4
+2018/12/01 03:00:50.320 cluster_info.go:488: [info] [region 9] Remove peer:{id:34 store_id:4 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:50.320 operator_controller.go:67: [info] [region 9] operator finish: balance-region (kind:region,balance, region:9(3,5), createAt:2018-12-01 03:00:23.282295462 +0800 CST m=+48981.670780325, currentStep:3, steps:[add learner peer 133 on store 6 promote learner peer 133 on store 6 to voter remove peer on store 4]) finished
+2018/12/01 03:00:50.399 operator_controller.go:121: [info] [region 7] add operator: balance-region (kind:region,balance, region:7(2,5), createAt:2018-12-01 03:00:50.399940866 +0800 CST m=+49008.788425729, currentStep:0, steps:[add learner peer 136 on store 6 promote learner peer 136 on store 6 to voter remove peer on store 5]) 
+2018/12/01 03:00:50.400 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 136 on store 6
+2018/12/01 03:00:51.998 cluster_info.go:488: [info] [region 7] Add peer:{id:136 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:52.039 operator_controller.go:180: [info] [region 7] send schedule command: add learner peer 136 on store 6
+2018/12/01 03:00:52.039 operator_controller.go:180: [info] [region 85] send schedule command: promote learner peer 134 on store 6 to voter
+2018/12/01 03:00:52.039 operator_controller.go:180: [info] [region 85] send schedule command: promote learner peer 134 on store 6 to voter
+2018/12/01 03:00:54.172 cluster_info.go:488: [info] [region 85] Remove peer:{id:134 store_id:6 is_learner:true },Add peer:{id:134 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:54.172 operator_controller.go:180: [info] [region 85] send schedule command: remove peer on store 5
+2018/12/01 03:00:54.172 operator_controller.go:180: [info] [region 85] send schedule command: remove peer on store 5
+2018/12/01 03:00:55.740 operator_controller.go:180: [info] [region 97] send schedule command: promote learner peer 135 on store 6 to voter
+2018/12/01 03:00:55.740 operator_controller.go:180: [info] [region 97] send schedule command: promote learner peer 135 on store 6 to voter
+2018/12/01 03:00:56.007 cluster_info.go:488: [info] [region 85] Remove peer:{id:88 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:56.007 operator_controller.go:67: [info] [region 85] operator finish: balance-region (kind:region,balance, region:85(21,5), createAt:2018-12-01 03:00:38.279273398 +0800 CST m=+48996.667758255, currentStep:3, steps:[add learner peer 134 on store 6 promote learner peer 134 on store 6 to voter remove peer on store 5]) finished
+2018/12/01 03:00:56.011 operator_controller.go:121: [info] [region 89] add operator: balance-region (kind:region,balance, region:89(22,5), createAt:2018-12-01 03:00:56.011812851 +0800 CST m=+49014.400297714, currentStep:0, steps:[add learner peer 137 on store 6 promote learner peer 137 on store 6 to voter remove peer on store 5]) 
+2018/12/01 03:00:56.011 operator_controller.go:180: [info] [region 89] send schedule command: add learner peer 137 on store 6
+2018/12/01 03:00:57.784 cluster_info.go:488: [info] [region 97] Remove peer:{id:135 store_id:6 is_learner:true },Add peer:{id:135 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:00:57.785 operator_controller.go:180: [info] [region 97] send schedule command: remove peer on store 5
+2018/12/01 03:00:57.785 cluster_info.go:488: [info] [region 89] Add peer:{id:137 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:00:57.955 operator_controller.go:180: [info] [region 89] send schedule command: add learner peer 137 on store 6
+2018/12/01 03:00:57.955 operator_controller.go:180: [info] [region 97] send schedule command: remove peer on store 5
+2018/12/01 03:00:59.025 cluster_info.go:488: [info] [region 93] Remove peer:{id:95 store_id:4 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:59.025 operator_controller.go:67: [info] [region 93] operator finish: balance-region (kind:region,balance, region:93(23,5), createAt:2018-12-01 03:00:22.351458708 +0800 CST m=+48980.739943563, currentStep:3, steps:[add learner peer 132 on store 6 promote learner peer 132 on store 6 to voter remove peer on store 4]) finished
+2018/12/01 03:00:59.034 operator_controller.go:121: [info] [region 113] add operator: balance-region (kind:region,balance, region:113(28,5), createAt:2018-12-01 03:00:59.034483536 +0800 CST m=+49017.422968391, currentStep:0, steps:[add learner peer 138 on store 6 promote learner peer 138 on store 6 to voter remove peer on store 5]) 
+2018/12/01 03:00:59.034 operator_controller.go:180: [info] [region 113] send schedule command: add learner peer 138 on store 6
+2018/12/01 03:00:59.292 cluster_info.go:488: [info] [region 97] Remove peer:{id:100 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:00:59.293 operator_controller.go:67: [info] [region 97] operator finish: balance-region (kind:region,balance, region:97(24,5), createAt:2018-12-01 03:00:42.064633713 +0800 CST m=+49000.453118573, currentStep:3, steps:[add learner peer 135 on store 6 promote learner peer 135 on store 6 to voter remove peer on store 5]) finished
+2018/12/01 03:00:59.297 operator_controller.go:121: [info] [region 31] add operator: balance-region (kind:region,balance, region:31(14,5), createAt:2018-12-01 03:00:59.297711565 +0800 CST m=+49017.686196428, currentStep:0, steps:[add learner peer 139 on store 6 promote learner peer 139 on store 6 to voter remove peer on store 1]) 
+2018/12/01 03:00:59.297 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 139 on store 6
+2018/12/01 03:01:00.898 cluster_info.go:488: [info] [region 113] Add peer:{id:138 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:01:00.898 operator_controller.go:180: [info] [region 113] send schedule command: add learner peer 138 on store 6
+2018/12/01 03:01:01.401 operator_controller.go:180: [info] [region 7] send schedule command: promote learner peer 136 on store 6 to voter
+2018/12/01 03:01:01.401 operator_controller.go:180: [info] [region 7] send schedule command: promote learner peer 136 on store 6 to voter
+2018/12/01 03:01:04.028 cluster_info.go:488: [info] [region 7] Remove peer:{id:136 store_id:6 is_learner:true },Add peer:{id:136 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:01:04.028 operator_controller.go:180: [info] [region 7] send schedule command: remove peer on store 5
+2018/12/01 03:01:04.028 operator_controller.go:180: [info] [region 7] send schedule command: remove peer on store 5
+2018/12/01 03:01:09.604 cluster_info.go:488: [info] [region 31] Add peer:{id:139 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:01:09.605 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 139 on store 6
+2018/12/01 03:01:10.563 cluster_info.go:488: [info] [region 7] Remove peer:{id:46 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:01:10.563 operator_controller.go:67: [info] [region 7] operator finish: balance-region (kind:region,balance, region:7(2,5), createAt:2018-12-01 03:00:50.399940866 +0800 CST m=+49008.788425729, currentStep:3, steps:[add learner peer 136 on store 6 promote learner peer 136 on store 6 to voter remove peer on store 5]) finished
+2018/12/01 03:01:11.479 operator_controller.go:180: [info] [region 31] send schedule command: add learner peer 139 on store 6
+2018/12/01 03:01:11.675 operator_controller.go:121: [info] [region 121] add operator: moveHotWriteRegion (kind:region,hotRegion, region:121(30,5), createAt:2018-12-01 03:01:11.675343582 +0800 CST m=+49030.063828438, currentStep:0, steps:[add learner peer 140 on store 6 promote learner peer 140 on store 6 to voter remove peer on store 4]) 
+2018/12/01 03:01:11.675 operator_controller.go:180: [info] [region 121] send schedule command: add learner peer 140 on store 6
+2018/12/01 03:01:11.857 operator_controller.go:180: [info] [region 89] send schedule command: promote learner peer 137 on store 6 to voter
+2018/12/01 03:01:11.858 operator_controller.go:180: [info] [region 89] send schedule command: promote learner peer 137 on store 6 to voter
+2018/12/01 03:01:11.858 operator_controller.go:180: [info] [region 113] send schedule command: add learner peer 138 on store 6
+2018/12/01 03:01:11.858 operator_controller.go:180: [info] [region 89] send schedule command: promote learner peer 137 on store 6 to voter
+2018/12/01 03:01:11.858 operator_controller.go:180: [info] [region 121] send schedule command: add learner peer 140 on store 6
+2018/12/01 03:01:13.861 cluster_info.go:488: [info] [region 121] Add peer:{id:140 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:01:13.862 operator_controller.go:180: [info] [region 121] send schedule command: add learner peer 140 on store 6
+2018/12/01 03:01:15.038 operator_controller.go:180: [info] [region 113] send schedule command: promote learner peer 138 on store 6 to voter
+2018/12/01 03:01:15.038 operator_controller.go:180: [info] [region 113] send schedule command: promote learner peer 138 on store 6 to voter
+2018/12/01 03:01:15.442 cluster_info.go:488: [info] [region 89] Remove peer:{id:137 store_id:6 is_learner:true },Add peer:{id:137 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:01:15.443 operator_controller.go:180: [info] [region 89] send schedule command: remove peer on store 5
+2018/12/01 03:01:15.766 operator_controller.go:180: [info] [region 89] send schedule command: remove peer on store 5
+2018/12/01 03:01:16.040 operator_controller.go:180: [info] [region 31] send schedule command: promote learner peer 139 on store 6 to voter
+2018/12/01 03:01:16.041 operator_controller.go:180: [info] [region 31] send schedule command: promote learner peer 139 on store 6 to voter
+2018/12/01 03:01:16.612 cluster_info.go:488: [info] [region 113] Remove peer:{id:138 store_id:6 is_learner:true },Add peer:{id:138 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:01:16.613 operator_controller.go:180: [info] [region 113] send schedule command: remove peer on store 5
+2018/12/01 03:01:16.613 operator_controller.go:180: [info] [region 113] send schedule command: remove peer on store 5
+2018/12/01 03:01:18.093 cluster_info.go:488: [info] [region 89] Remove peer:{id:92 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:01:18.094 operator_controller.go:67: [info] [region 89] operator finish: balance-region (kind:region,balance, region:89(22,5), createAt:2018-12-01 03:00:56.011812851 +0800 CST m=+49014.400297714, currentStep:3, steps:[add learner peer 137 on store 6 promote learner peer 137 on store 6 to voter remove peer on store 5]) finished
+2018/12/01 03:01:18.469 tso.go:137: [warning] clock offset: 294.017452ms, prev: 2018-12-01 03:01:18.175073648 +0800 CST m=+49036.563558515, now: 2018-12-01 03:01:18.4690911 +0800 CST m=+49036.857575977
+2018/12/01 03:01:20.264 cluster_info.go:488: [info] [region 113] Remove peer:{id:116 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:01:20.264 operator_controller.go:67: [info] [region 113] operator finish: balance-region (kind:region,balance, region:113(28,5), createAt:2018-12-01 03:00:59.034483536 +0800 CST m=+49017.422968391, currentStep:3, steps:[add learner peer 138 on store 6 promote learner peer 138 on store 6 to voter remove peer on store 5]) finished
+2018/12/01 03:01:25.208 operator_controller.go:180: [info] [region 121] send schedule command: promote learner peer 140 on store 6 to voter
+2018/12/01 03:01:25.208 operator_controller.go:180: [info] [region 121] send schedule command: promote learner peer 140 on store 6 to voter
+2018/12/01 03:01:25.985 cluster_info.go:488: [info] [region 121] Remove peer:{id:140 store_id:6 is_learner:true },Add peer:{id:140 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:01:25.986 operator_controller.go:180: [info] [region 121] send schedule command: remove peer on store 4
+2018/12/01 03:01:25.986 operator_controller.go:180: [info] [region 121] send schedule command: remove peer on store 4
+2018/12/01 03:01:26.913 cluster_info.go:488: [info] [region 121] Remove peer:{id:123 store_id:4 }, ConfVer changed from {7} to {8}
+2018/12/01 03:01:26.915 operator_controller.go:67: [info] [region 121] operator finish: moveHotWriteRegion (kind:region,hotRegion, region:121(30,5), createAt:2018-12-01 03:01:11.675343582 +0800 CST m=+49030.063828438, currentStep:3, steps:[add learner peer 140 on store 6 promote learner peer 140 on store 6 to voter remove peer on store 4]) finished
+2018/12/01 03:01:26.917 operator_controller.go:121: [info] [region 65] add operator: moveHotWriteRegion (kind:region,hotRegion, region:65(16,5), createAt:2018-12-01 03:01:26.917717171 +0800 CST m=+49045.306202028, currentStep:0, steps:[add learner peer 141 on store 6 promote learner peer 141 on store 6 to voter remove peer on store 5]) 
+2018/12/01 03:01:26.917 operator_controller.go:180: [info] [region 65] send schedule command: add learner peer 141 on store 6
+2018/12/01 03:01:33.897 cluster_info.go:488: [info] [region 31] Remove peer:{id:139 store_id:6 is_learner:true },Add peer:{id:139 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:01:33.898 operator_controller.go:180: [info] [region 31] send schedule command: remove peer on store 1
+2018/12/01 03:01:34.943 operator_controller.go:180: [info] [region 31] send schedule command: remove peer on store 1
+2018/12/01 03:01:38.646 tso.go:137: [warning] clock offset: 171.009508ms, prev: 2018-12-01 03:01:38.475073675 +0800 CST m=+49056.863558552, now: 2018-12-01 03:01:38.646083183 +0800 CST m=+49057.034568088
+2018/12/01 03:01:46.363 cluster_info.go:488: [info] [region 31] Remove peer:{id:32 store_id:1 }, ConfVer changed from {7} to {8}
+2018/12/01 03:01:46.364 operator_controller.go:67: [info] [region 31] operator finish: balance-region (kind:region,balance, region:31(14,5), createAt:2018-12-01 03:00:59.297711565 +0800 CST m=+49017.686196428, currentStep:3, steps:[add learner peer 139 on store 6 promote learner peer 139 on store 6 to voter remove peer on store 1]) finished
+2018/12/01 03:01:50.942 cluster_info.go:488: [info] [region 65] Add peer:{id:141 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:01:50.943 operator_controller.go:180: [info] [region 65] send schedule command: add learner peer 141 on store 6
+2018/12/01 03:02:01.219 operator_controller.go:180: [info] [region 65] send schedule command: promote learner peer 141 on store 6 to voter
+2018/12/01 03:02:01.219 operator_controller.go:180: [info] [region 65] send schedule command: promote learner peer 141 on store 6 to voter
+2018/12/01 03:02:12.190 cluster_info.go:488: [info] [region 65] Remove peer:{id:141 store_id:6 is_learner:true },Add peer:{id:141 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:02:13.050 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586763 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/raft/r/00000000000000000065\" value:\"\\010A\\022\\022t\\200\\000\\000\\000\\000\\000\\000\\377!\\000\\000\\000\\000\\000\\000\\000\\370\\032\\022t\\200\\000\\000\\000\\000\\000\\000\\377$\\000\\000\\000\\000\\000\\000\\000\\370\\\"\\004\\010\\007\\020\\020*\\004\\010B\\020\\001*\\004\\010C\\020\\004*\\004\\010D\\020\\005*\\005\\010\\215\\001\\020\\006\" > > > " took too long (106.413497ms) to execute]
+2018/12/01 03:02:13.050 operator_controller.go:180: [info] [region 65] send schedule command: remove peer on store 5
+2018/12/01 03:02:13.050 operator_controller.go:180: [info] [region 65] send schedule command: remove peer on store 5
+2018/12/01 03:02:13.050 operator_controller.go:180: [info] [region 65] send schedule command: remove peer on store 5
+2018/12/01 03:02:15.484 cluster_info.go:488: [info] [region 65] Remove peer:{id:68 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:02:15.488 operator_controller.go:67: [info] [region 65] operator finish: moveHotWriteRegion (kind:region,hotRegion, region:65(16,5), createAt:2018-12-01 03:01:26.917717171 +0800 CST m=+49045.306202028, currentStep:3, steps:[add learner peer 141 on store 6 promote learner peer 141 on store 6 to voter remove peer on store 5]) finished
+2018/12/01 03:02:15.667 operator_controller.go:121: [info] [region 81] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:81(20,8), createAt:2018-12-01 03:02:15.667433943 +0800 CST m=+49094.055918800, currentStep:0, steps:[transfer leader from store 1 to store 6]) 
+2018/12/01 03:02:15.667 operator_controller.go:180: [info] [region 81] send schedule command: transfer leader from store 1 to store 6
+2018/12/01 03:02:17.630 cluster_info.go:495: [info] [region 81] Leader changed from store {1} to {6}
+2018/12/01 03:02:17.733 operator_controller.go:67: [info] [region 81] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:81(20,8), createAt:2018-12-01 03:02:15.667433943 +0800 CST m=+49094.055918800, currentStep:1, steps:[transfer leader from store 1 to store 6]) finished
+2018/12/01 03:02:17.930 operator_controller.go:121: [info] [region 73] add operator: moveHotWriteRegion (kind:leader,region,hotRegion, region:73(18,5), createAt:2018-12-01 03:02:17.93087498 +0800 CST m=+49096.319359843, currentStep:0, steps:[add learner peer 142 on store 6 promote learner peer 142 on store 6 to voter transfer leader from store 5 to store 1 remove peer on store 5]) 
+2018/12/01 03:02:17.931 operator_controller.go:180: [info] [region 73] send schedule command: add learner peer 142 on store 6
+2018/12/01 03:02:23.055 cluster_info.go:488: [info] [region 73] Add peer:{id:142 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:02:23.056 operator_controller.go:180: [info] [region 73] send schedule command: add learner peer 142 on store 6
+2018/12/01 03:02:37.299 operator_controller.go:180: [info] [region 73] send schedule command: promote learner peer 142 on store 6 to voter
+2018/12/01 03:02:37.299 operator_controller.go:180: [info] [region 73] send schedule command: promote learner peer 142 on store 6 to voter
+2018/12/01 03:02:39.218 cluster_info.go:488: [info] [region 73] Remove peer:{id:142 store_id:6 is_learner:true },Add peer:{id:142 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:02:39.555 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586778 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/raft/r/00000000000000000073\" value:\"\\010I\\022\\022t\\200\\000\\000\\000\\000\\000\\000\\377'\\000\\000\\000\\000\\000\\000\\000\\370\\032\\022t\\200\\000\\000\\000\\000\\000\\000\\377*\\000\\000\\000\\000\\000\\000\\000\\370\\\"\\004\\010\\007\\020\\022*\\004\\010J\\020\\001*\\004\\010K\\020\\004*\\004\\010L\\020\\005*\\005\\010\\216\\001\\020\\006\" > > > " took too long (241.582122ms) to execute]
+2018/12/01 03:02:39.555 operator_controller.go:180: [info] [region 73] send schedule command: transfer leader from store 5 to store 1
+2018/12/01 03:02:39.555 operator_controller.go:180: [info] [region 73] send schedule command: transfer leader from store 5 to store 1
+2018/12/01 03:03:12.148 operator_controller.go:180: [info] [region 73] send schedule command: transfer leader from store 5 to store 1
+2018/12/01 03:03:13.581 cluster_info.go:495: [info] [region 73] Leader changed from store {5} to {1}
+2018/12/01 03:03:13.581 operator_controller.go:180: [info] [region 73] send schedule command: remove peer on store 5
+2018/12/01 03:03:14.198 operator_controller.go:180: [info] [region 73] send schedule command: remove peer on store 5
+2018/12/01 03:03:14.539 operator_controller.go:180: [info] [region 73] send schedule command: remove peer on store 5
+2018/12/01 03:03:14.539 operator_controller.go:180: [info] [region 73] send schedule command: remove peer on store 5
+2018/12/01 03:03:16.033 tso.go:137: [warning] clock offset: 858.106013ms, prev: 2018-12-01 03:03:15.175133982 +0800 CST m=+49153.563618888, now: 2018-12-01 03:03:16.033239995 +0800 CST m=+49154.421724854
+2018/12/01 03:03:48.522 tso.go:137: [warning] clock offset: 347.520634ms, prev: 2018-12-01 03:03:48.175114565 +0800 CST m=+49186.563599456, now: 2018-12-01 03:03:48.522635199 +0800 CST m=+49186.911120058
+2018/12/01 03:03:52.273 log.go:84: [warning] wal: [sync duration of 1.098295322s, expected less than 1s]
+2018/12/01 03:04:10.190 log.go:84: [warning] wal: [sync duration of 1.015366888s, expected less than 1s]
+2018/12/01 03:04:12.945 operator_controller.go:180: [info] [region 73] send schedule command: remove peer on store 5
+2018/12/01 03:04:15.734 cluster_info.go:488: [info] [region 73] Remove peer:{id:76 store_id:5 }, ConfVer changed from {7} to {8}
+2018/12/01 03:04:15.738 operator_controller.go:67: [info] [region 73] operator finish: moveHotWriteRegion (kind:leader,region,hotRegion, region:73(18,5), createAt:2018-12-01 03:02:17.93087498 +0800 CST m=+49096.319359843, currentStep:4, steps:[add learner peer 142 on store 6 promote learner peer 142 on store 6 to voter transfer leader from store 5 to store 1 remove peer on store 5]) finished
+2018/12/01 03:04:15.945 operator_controller.go:121: [info] [region 117] add operator: moveHotWriteRegion (kind:region,hotRegion, region:117(29,5), createAt:2018-12-01 03:04:15.945453296 +0800 CST m=+49214.333938165, currentStep:0, steps:[add learner peer 143 on store 6 promote learner peer 143 on store 6 to voter remove peer on store 4]) 
+2018/12/01 03:04:15.945 operator_controller.go:180: [info] [region 117] send schedule command: add learner peer 143 on store 6
+2018/12/01 03:04:18.741 cluster_info.go:488: [info] [region 117] Add peer:{id:143 store_id:6 is_learner:true }, ConfVer changed from {5} to {6}
+2018/12/01 03:04:18.742 operator_controller.go:180: [info] [region 117] send schedule command: add learner peer 143 on store 6
+2018/12/01 03:04:22.609 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586824 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374C\\201\\313j\\235\" > > > " took too long (836.881589ms) to execute]
+2018/12/01 03:04:23.379 util.go:214: [warning] txn runs too slow, resp: &{cluster_id:2374373632313605856 member_id:5059191774930042609 revision:16876 raft_term:2  true [response_put:<header:<revision:16876 > > ]}, err: <nil>, cost: 1.434229197s
+2018/12/01 03:04:23.379 tso.go:137: [warning] clock offset: 2.204293875s, prev: 2018-12-01 03:04:21.175127197 +0800 CST m=+49219.563612096, now: 2018-12-01 03:04:23.379421072 +0800 CST m=+49221.767905929
+2018/12/01 03:04:38.230 operator_controller.go:180: [info] [region 117] send schedule command: promote learner peer 143 on store 6 to voter
+2018/12/01 03:04:38.230 operator_controller.go:180: [info] [region 117] send schedule command: promote learner peer 143 on store 6 to voter
+2018/12/01 03:04:43.282 cluster_info.go:488: [info] [region 117] Remove peer:{id:143 store_id:6 is_learner:true },Add peer:{id:143 store_id:6 }, ConfVer changed from {6} to {7}
+2018/12/01 03:04:43.282 operator_controller.go:180: [info] [region 117] send schedule command: remove peer on store 4
+2018/12/01 03:04:43.800 operator_controller.go:180: [info] [region 117] send schedule command: remove peer on store 4
+2018/12/01 03:04:44.997 cluster_info.go:488: [info] [region 117] Remove peer:{id:119 store_id:4 }, ConfVer changed from {7} to {8}
+2018/12/01 03:04:44.998 operator_controller.go:67: [info] [region 117] operator finish: moveHotWriteRegion (kind:region,hotRegion, region:117(29,5), createAt:2018-12-01 03:04:15.945453296 +0800 CST m=+49214.333938165, currentStep:3, steps:[add learner peer 143 on store 6 promote learner peer 143 on store 6 to voter remove peer on store 4]) finished
+2018/12/01 03:04:45.339 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (162.664465ms) to execute]
+2018/12/01 03:05:15.507 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (167.23502ms) to execute]
+2018/12/01 03:05:17.906 tso.go:137: [warning] clock offset: 230.744191ms, prev: 2018-12-01 03:05:17.675133394 +0800 CST m=+49276.063618300, now: 2018-12-01 03:05:17.905877585 +0800 CST m=+49276.294362496
+2018/12/01 03:05:39.371 tso.go:137: [warning] clock offset: 393.659244ms, prev: 2018-12-01 03:05:38.975123798 +0800 CST m=+49297.363608692, now: 2018-12-01 03:05:39.368783042 +0800 CST m=+49297.757267938
+2018/12/01 03:06:09.090 tso.go:137: [warning] clock offset: 365.512184ms, prev: 2018-12-01 03:06:08.725103518 +0800 CST m=+49327.113588417, now: 2018-12-01 03:06:09.090615702 +0800 CST m=+49327.479100564
+2018/12/01 03:06:34.746 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586883 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374bI\\206\\274b\" > > > " took too long (665.141828ms) to execute]
+2018/12/01 03:06:35.687 util.go:214: [warning] txn runs too slow, resp: &{cluster_id:2374373632313605856 member_id:5059191774930042609 revision:16922 raft_term:2  true [response_put:<header:<revision:16922 > > ]}, err: <nil>, cost: 1.534338964s
+2018/12/01 03:06:35.687 tso.go:137: [warning] clock offset: 2.312570947s, prev: 2018-12-01 03:06:33.375088226 +0800 CST m=+49351.763573086, now: 2018-12-01 03:06:35.687659173 +0800 CST m=+49354.076144031
+2018/12/01 03:07:18.183 operator_controller.go:121: [info] [region 93] add operator: transferHotWriteLeader (kind:leader,hotRegion, region:93(23,8), createAt:2018-12-01 03:07:18.183418632 +0800 CST m=+49396.571903492, currentStep:0, steps:[transfer leader from store 5 to store 1]) 
+2018/12/01 03:07:18.479 operator_controller.go:180: [info] [region 93] send schedule command: transfer leader from store 5 to store 1
+2018/12/01 03:07:19.574 log.go:84: [warning] wal: [sync duration of 1.036613165s, expected less than 1s]
+2018/12/01 03:07:22.651 cluster_info.go:495: [info] [region 93] Leader changed from store {5} to {1}
+2018/12/01 03:07:22.723 operator_controller.go:67: [info] [region 93] operator finish: transferHotWriteLeader (kind:leader,hotRegion, region:93(23,8), createAt:2018-12-01 03:07:18.183418632 +0800 CST m=+49396.571903492, currentStep:1, steps:[transfer leader from store 5 to store 1]) finished
+2018/12/01 03:10:13.787 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382586978 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374\\225F\\362\\325*\" > > > " took too long (387.154873ms) to execute]
+2018/12/01 03:10:14.084 util.go:214: [warning] txn runs too slow, resp: &{cluster_id:2374373632313605856 member_id:5059191774930042609 revision:16995 raft_term:2  true [response_put:<header:<revision:16995 > > ]}, err: <nil>, cost: 1.675330022s
+2018/12/01 03:10:14.085 tso.go:137: [warning] clock offset: 1.709968646s, prev: 2018-12-01 03:10:12.375172906 +0800 CST m=+49570.763657801, now: 2018-12-01 03:10:14.085141552 +0800 CST m=+49572.473626417
+2018/12/01 03:10:51.386 tso.go:137: [warning] clock offset: 251.785242ms, prev: 2018-12-01 03:10:50.834565553 +0800 CST m=+49609.223050451, now: 2018-12-01 03:10:51.086350795 +0800 CST m=+49609.474835659
+2018/12/01 03:10:52.524 tso.go:137: [warning] clock offset: 1.437787879s, prev: 2018-12-01 03:10:51.086350795 +0800 CST m=+49609.474835659, now: 2018-12-01 03:10:52.524138674 +0800 CST m=+49610.912623561
+2018/12/01 03:10:56.560 log.go:84: [warning] etcdserver: [read-only range request "key:\"/tidb/store/gcworker/saved_safe_point\" " took too long (509.690506ms) to execute]
+2018/12/01 03:11:07.095 tso.go:137: [warning] clock offset: 169.936487ms, prev: 2018-12-01 03:11:06.92510218 +0800 CST m=+49625.313587064, now: 2018-12-01 03:11:07.095038667 +0800 CST m=+49625.483523535
+2018/12/01 03:11:13.890 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382587004 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374\\243\\203\\304\\322\\204\" > > > " took too long (142.95259ms) to execute]
+2018/12/01 03:11:13.890 tso.go:137: [warning] clock offset: 365.434637ms, prev: 2018-12-01 03:11:13.525109892 +0800 CST m=+49631.913594798, now: 2018-12-01 03:11:13.890544529 +0800 CST m=+49632.279029389
+2018/12/01 03:11:19.280 tso.go:137: [warning] clock offset: 155.492725ms, prev: 2018-12-01 03:11:19.125102189 +0800 CST m=+49637.513587085, now: 2018-12-01 03:11:19.280594914 +0800 CST m=+49637.669079782
+2018/12/01 03:12:15.259 log.go:84: [warning] etcdserver: [request "header:<ID:9147205993382587030 > txn:<compare:<target:VALUE key:\"/pd/6629520143555668511/leader\" value:\"\\n\\003pd1\\020\\361\\375\\241\\232\\325\\203\\367\\232F\\032\\033http://192.168.199.118:2380\\\"\\033http://192.168.199.118:2379\" > success:<request_put:<key:\"/pd/6629520143555668511/timestamp\" value:\"\\025k\\374\\261|\\014\\003\\304\" > > > " took too long (381.800018ms) to execute]
+2018/12/01 03:12:15.762 util.go:214: [warning] txn runs too slow, resp: &{cluster_id:2374373632313605856 member_id:5059191774930042609 revision:17035 raft_term:2  true [response_put:<header:<revision:17035 > > ]}, err: <nil>, cost: 2.13197092s
+2018/12/01 03:12:15.762 tso.go:137: [warning] clock offset: 2.23722016s, prev: 2018-12-01 03:12:13.525099972 +0800 CST m=+49691.913584879, now: 2018-12-01 03:12:15.762320132 +0800 CST m=+49694.150804993
+2018/12/01 03:13:16.872 operator_controller.go:121: [info] [region 121] add operator: moveHotWriteRegion (kind:region,hotRegion, region:121(30,8), createAt:2018-12-01 03:13:16.847705977 +0800 CST m=+49755.236190845, currentStep:0, steps:[add learner peer 144 on store 4 promote learner peer 144 on store 4 to voter remove peer on store 5]) 
+2018/12/01 03:13:17.045 operator_controller.go:180: [info] [region 121] send schedule command: add learner peer 144 on store 4
+2018/12/01 03:13:31.558 cluster_info.go:488: [info] [region 121] Add peer:{id:144 store_id:4 is_learner:true }, ConfVer changed from {8} to {9}
+2018/12/01 03:13:31.943 operator_controller.go:180: [info] [region 121] send schedule command: add learner peer 144 on store 4
