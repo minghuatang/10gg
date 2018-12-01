@@ -61,24 +61,24 @@ class SlowQuery(object):
 
 
 def take_slow_query_in_tidb(log, addition=None):
-     content = log['content'].strip()
-     match = RE_TIDB_SLOW_QUERY.match(content)
-     if match is None:
-        return
-     r = match.groups()
-     return SlowQuery(**{
-         'cost_time': r[0],
-         'process_time': r[1],
-         'backoff_time': r[2],
-         'total_keys': r[3],
-         'processed_keys': r[4],
-         'suss': r[5],
-         'connect_id': r[6],
-         'start_ts': r[7],
-         'database': r[8],
-         'table_id': r[9],
-         'sql': r[10]
-     }, logs=addition)
+    content = log['content'].strip()
+    match = RE_TIDB_SLOW_QUERY.match(content)
+    if match is None:
+       return
+    r = match.groups()
+    return SlowQuery(**{
+        'cost_time': r[0],
+        'process_time': r[1],
+        'backoff_time': r[2],
+        'total_keys': r[3],
+        'processed_keys': r[4],
+        'suss': r[5],
+        'connect_id': r[6],
+        'start_ts': r[7],
+        'database': r[8],
+        'table_id': r[9],
+        'sql': r[10],
+    }, logs=addition)
 
 def slow_query_detect(tidb_logs, tikv_logs):
     tidb_slow = entry.filter_by_word(tidb_logs, "SLOW_QUERY")

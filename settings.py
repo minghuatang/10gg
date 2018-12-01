@@ -1,7 +1,7 @@
 import os
 
 BASE_DIR = os.path.dirname(__file__)
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'template/').replace('\\', '/')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates/').replace('\\', '/')
 STATIC_DIR = os.path.join(BASE_DIR, 'static/').replace('\\', '/')
 CONFIG_DIR = os.path.join(BASE_DIR, 'config/').replace('\\', '/')
 DATA_DIR = os.path.join(BASE_DIR, 'data/').replace('\\', '/')
@@ -18,7 +18,7 @@ site_settings = {
     "static_path": STATIC_DIR,
     "salt_length": 12,
     "cluster_config": os.path.join(CONFIG_DIR, 'inventory.ini'),
-    "data_dir": DATA_DIR,
+    "data_path": DATA_DIR,
     "remote_username": "pingcap",
     "pd_host": "172.16.30.38",
     "pd_port": "13379",

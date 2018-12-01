@@ -11,6 +11,7 @@ import tornado.httpserver
 from settings import site_settings
 from api.api import alert_messages, unique_alert_messages
 from log_puller.puller import pull
+from detection import detect
 import urls
 import util
 
@@ -27,7 +28,7 @@ def alert_listener():
             pull()
             time_window = datetime.now()
             unique_alert_messages = set()
-
+            print(detect.analyze())
 
 if __name__ == "__main__":
     try:
