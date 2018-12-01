@@ -14,6 +14,25 @@ RE_LOG_SPLIT_MAP = {
     entry.SOURCE_TIKV: RE_LOG_SPLIT_TIKV,
 }
 
+RE_LOG_TAG = re.compile(r'\[([a-zA-Z]\w*)( \d+)?\]')
+
+def parse_tags(log_entry):
+    content = log_entry['content']
+    raw_tags = RE_LOG_TAG.findall(content)
+
+    tags = []
+    for raw_tag in raw_tags:
+        if len(raw_tag) > 1:
+            tag = raw_tag[0]
+            v = raw_tag[1].strip()
+            log_entry[tag] = v
+            tags.append(tag)
+        else:
+            tags.append(raw_tag)
+
+    log_entry['tags'] = tags
+    return log_entry
+
 
 def parse_text_pd_or_tidb(text, log_type):
     RE_LOG_SPLIT = RE_LOG_SPLIT_MAP[log_type]
@@ -60,6 +79,8 @@ def parse_text(text, log_type):
         entry.SOURCE_TIKV: parse_text_tikv,
     }[log_type](text, log_type)
 
+    log_entries = map(parse_tags, log_entries)
+
     return log_entries
 
 if __name__ == '__main__':
@@ -68,4 +89,4 @@ if __name__ == '__main__':
     log_source = sys.argv[2]
     text = open(filename).read()
     log_entries = parse_text(text, log_source)
-    pprint(log_entries)
+    pprint(list(log_entries))
