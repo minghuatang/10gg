@@ -3,12 +3,12 @@
 # 如何在内存里表示一条log
 
 
-SOURCE_TIDB = 0
-SOURCE_TIKV = 1
-SOURCE_PD = 2
+SOURCE_TIDB = 'TIDB'
+SOURCE_TIKV = 'TIKV'
+SOURCE_PD = 'PD'
 
-SOURCE_METRIC = 10
-SOURCE_OS = 11
+SOURCE_METRIC = 'METRIC'
+SOURCE_OS = 'OS'
 
 # 因为map结构没有固定schema，我们可以针对一种log类型做任意扩展
 
