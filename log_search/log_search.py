@@ -3,6 +3,7 @@
 from pprint import pprint
 from log_entry import entry
 from log_entry import parser
+from log_entry import formatter
 
 def parse_args(args):
     is_key = lambda x: x.startswith('-') or x.startswith('--')
@@ -61,7 +62,9 @@ def main(kw):
 
     res = entry.filter_log_entries(raw_entries, **kw)
 
-    pprint(list(res))
+    format_res = map(formatter.format_log_entry, res)
+    for r in format_res:
+        print(r)
 
 
 if __name__ == '__main__':

@@ -1,2 +1,4 @@
 # 10gg
-A log analysis tool for [tidb](https://github.com/pingcap/tidb).
+A log analysis tool for [TiDB](https://github.com/pingcap/tidb).
+
+
