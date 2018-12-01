@@ -34,7 +34,7 @@ sample_tidb_log_entry = {
 }
 
 sample_pd_log_entry = {
-    'source': SOURCE_PD
+    'source': SOURCE_PD,
     'log_time': '2018/11/30 13:24:08.601',
     'log_level': 'info',
     'file_name': 'cluster_info.go',
