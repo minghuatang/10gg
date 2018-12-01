@@ -14,21 +14,52 @@ RE_LOG_SPLIT_MAP = {
     entry.SOURCE_TIKV: RE_LOG_SPLIT_TIKV,
 }
 
-RE_LOG_TAG = re.compile(r'\[([a-zA-Z]\w*)( \d+)?\]')
+RE_LOG_TAG = re.compile(r'^(\[[^]]+\] )(\[[^]]+\] )*')
+RE_LOG_TAG_KV = re.compile(r'(\w+) (\d+)')
 
-def parse_tags(log_entry):
+
+# RE_LOG_TAG = re.compile(r'\[([a-zA-Z]\w*)( \d+)?\]')
+#
+# def parse_tags(log_entry):
+#     content = log_entry['content']
+#     raw_tags = RE_LOG_TAG.findall(content)
+#
+#     tags = []
+#     for raw_tag in raw_tags:
+#         if len(raw_tag) > 1:
+#             tag = raw_tag[0]
+#             v = raw_tag[1].strip()
+#             log_entry[tag] = v
+#             tags.append(tag)
+#         else:
+#             tags.append(raw_tag)
+#
+#     log_entry['tags'] = tags
+#     return log_entry
+
+ def parse_tags(log_entry):
     content = log_entry['content']
-    raw_tags = RE_LOG_TAG.findall(content)
+    res = RE_LOG_TAG.findall(content)
+
+    def prune_raw_tag(raw_tag):
+        return raw_tag[1:-2]
 
     tags = []
-    for raw_tag in raw_tags:
-        if len(raw_tag) > 1:
-            tag = raw_tag[0]
-            v = raw_tag[1].strip()
-            log_entry[tag] = v
-            tags.append(tag)
+    def parse_tag(raw_tag):
+        pruned_tag = prune_raw_tag(raw_tag)
+
+        kv_res = RE_LOG_TAG_KV.findall(pruned_tag)
+        if 0 != len(kv_res):
+            tags.append(kv_res[0][0])
+            log_entry[kv_res[0][0]] = kv_res[0][1]
         else:
-            tags.append(raw_tag)
+            tags.append(pruned_tag)
+
+    if 0 != len(res):
+        raw_tags = res[0]
+        for raw_tag in raw_tags:
+            if '' != raw_tag:
+                parse_tag(raw_tag)
 
     log_entry['tags'] = tags
     return log_entry
