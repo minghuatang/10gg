@@ -2,16 +2,16 @@
 
 import re
 from pprint import pprint
-from log_entry import log_entry
+from log_entry import entry
 
 RE_LOG_SPLIT_PD = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+\.\w+):(\d+): \[(\w+)\]', re.M)
 RE_LOG_SPLIT_TIDB = RE_LOG_SPLIT_PD
 RE_LOG_SPLIT_TIKV = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) \w+ (\w+\.\w+|\<unknown\>):(\d+): ', re.M)
 
 RE_LOG_SPLIT_MAP = {
-    log_entry.SOURCE_PD: RE_LOG_SPLIT_PD,
-    log_entry.SOURCE_TIDB: RE_LOG_SPLIT_TIDB,
-    log_entry.SOURCE_TIKV: RE_LOG_SPLIT_TIKV,
+    entry.SOURCE_PD: RE_LOG_SPLIT_PD,
+    entry.SOURCE_TIDB: RE_LOG_SPLIT_TIDB,
+    entry.SOURCE_TIKV: RE_LOG_SPLIT_TIKV,
 }
 
 
@@ -34,7 +34,7 @@ def parse_text_pd_or_tidb(text, log_type):
 
     return log_entries
 
-def parse_text_tikv(text, log_type=log_entry.SOURCE_TIKV):
+def parse_text_tikv(text, log_type=entry.SOURCE_TIKV):
     RE_LOG_SPLIT = RE_LOG_SPLIT_MAP[log_type]
     text_splits = RE_LOG_SPLIT.split(text)
 
@@ -55,9 +55,9 @@ def parse_text_tikv(text, log_type=log_entry.SOURCE_TIKV):
 
 def parse_text(text, log_type):
     log_entries = {
-        log_entry.SOURCE_PD: parse_text_pd_or_tidb,
-        log_entry.SOURCE_TIDB: parse_text_pd_or_tidb,
-        log_entry.SOURCE_TIKV: parse_text_tikv,
+        entry.SOURCE_PD: parse_text_pd_or_tidb,
+        entry.SOURCE_TIDB: parse_text_pd_or_tidb,
+        entry.SOURCE_TIKV: parse_text_tikv,
     }[log_type](text, log_type)
 
     return log_entries
