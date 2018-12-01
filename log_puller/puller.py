@@ -6,19 +6,19 @@ CLUSTER_CONFIG = dict()
 LOG = dict()
 
 
-def pull(config_filename, username):
+def pull(config_filename, username, output_dir):
     CLUSTER_CONFIG = load_config(config_filename)
     deploy_dir = CLUSTER_CONFIG["all:vars"]["deploy_dir"]
     for s in CLUSTER_CONFIG["tidb_servers"].keys():
-        os.system("scp {}@{}:{}/log/tidb.log {}-tidb.log"
-                  .format(username, s, deploy_dir, s))
+        os.system("scp {}@{}:{}/log/tidb.log {}/{}-tidb.log"
+                  .format(username, s, deploy_dir, output_dir, s))
     for s in CLUSTER_CONFIG["pd_servers"].keys():
-        os.system("scp {}@{}:{}/log/pd.log {}-pd.log"
-                  .format(username, s, deploy_dir, s))
+        os.system("scp {}@{}:{}/log/pd.log {}/{}-pd.log"
+                  .format(username, s, deploy_dir, output_dir, s))
     for s in CLUSTER_CONFIG["tikv_servers"].items():
         v = s[1].split()
-        os.system("scp {}@{}:{}/log/tikv.log {}-tikv.log"
-                  .format(username, v[0], v[1][11:], s[0].split()[0]))
+        os.system("scp {}@{}:{}/log/tikv.log {}/{}-tikv.log"
+                  .format(username, v[0], v[1][11:], output_dir, s[0].split()[0]))
 
 
 def load_config(filename):
