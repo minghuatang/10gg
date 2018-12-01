@@ -88,7 +88,7 @@ def parse_text_pd_or_tidb(text, log_type):
 
     log_entries = []
     index = 1
-    while index + 5 < len(text_splits):
+    while index + 5 <= len(text_splits):
         log_entries.append({
             'source':    log_type,
             'log_time':  text_splits[index],

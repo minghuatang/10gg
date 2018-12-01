@@ -1,6 +1,6 @@
 # 10gg
 <div align="center">
-  <img src="logo/horizon_banner.png"><br><br>
+  <img src="logo/logo.png"><br><br>
 </div>
 
 ## Overview

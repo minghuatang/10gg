@@ -16,6 +16,9 @@ LOG_ERROR = 3
 LOG_FATAL = 4
 LOG_NULL = 5
 
+TIDB_SLOW_QUERY = 'SLOW_QUERY'
+TIKV_SLOW_QUERY = 'slow-query'
+
 # 因为map结构没有固定schema，我们可以针对一种log类型做任意扩展
 
 sample_tikv_log_entry = {
@@ -27,7 +30,7 @@ sample_tikv_log_entry = {
     'content': '', # 剩下的全部内容
     'region': 11, # optional
     'store': 1, # optional
-    'tags': ['store', 'region'] # optional
+    'tags': ['store', 'region', 'slow-query'] # optional
 }
 
 sample_tidb_log_entry = {

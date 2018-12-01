@@ -23,7 +23,7 @@ def format_log_entry(log_entry):
 
 def format_log_entry_with_type(log_entry):
     return '{} {} {} {}:{} {}'.format(
-        format_log_type['log_type'],
+        format_log_type(log_entry['log_type']),
         log_entry['log_time'],
         format_log_level(log_entry['log_level']),
         log_entry['file_name'],
