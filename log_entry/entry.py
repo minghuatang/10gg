@@ -51,10 +51,10 @@ sample_pd_log_entry = {
 }
 
 def filter_by_datetime(log_entries, begin, end):
-    return filter(lambda e : begin <= e[:-4] and e[:-4] < end, log_entries)
+    return filter(lambda e : begin <= e['log_time'][:-4] and e['log_time'][:-4] < end, log_entries)
 
 def filter_by_date(log_entries, begin, end):
-    return filter(lambda e : begin <= e[:10] and e[:10] < end, log_entries)
+    return filter(lambda e : begin <= e['log_time'][:10] and e['log_time'][:10] < end, log_entries)
 
 def filter_by_level(log_entries, level):
     return filter(lambda e : e['log_level'] >= LOG_DEBUG, log_entries)
@@ -66,7 +66,7 @@ def filter_by_tag(log_entries, tag):
     return filter(lambda e : tag in e['tags'], log_entries)
 
 def filter_by_tags(log_entries, tags):
-    for tag in rags:
+    for tag in tags:
         log_entries = filter_by_tag(log_entries, tag)
     return log_entries
 
@@ -82,12 +82,13 @@ def filter_by_store(log_entries, store):
 def filter_log_entries(log_entries, **kw):
     res = log_entries
 
-    filters = kw['filters']
-    for f in filters:
-        res = filter(f, res)
+    if 'filters' in kw:
+        filters = kw['filters']
+        for f in filters:
+            res = filter(f, res)
 
     if 'datetime' in kw:
-        res = filter_by_date(res, kw['datetime'][0], kw['datetime'][1])
+        res = filter_by_datetime(res, kw['datetime'][0], kw['datetime'][1])
 
     if 'date' in kw:
         res = filter_by_date(res, kw['date'][0], kw['date'][1])

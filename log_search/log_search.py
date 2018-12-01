@@ -36,6 +36,19 @@ def main(kw):
     input_text = open(kw['input']).read()
     raw_entries = parser.parse_text(input_text, kw['log_type'])
 
+    if 'datetime-begin' in kw and 'datetime-end' in kw:
+        kw['datetime'] = (kw['datetime-begin'], kw['datetime-end'])
+
+    if 'date-begin' in kw and 'date-end' in kw:
+        kw['date'] = (kw['date-begin'], kw['date-end'])
+
+    if 'tags' in kw:
+        kw['tags'] = kw['tags'].split(',')
+
+    res = entry.filter_log_entries(raw_entries, **kw)
+
+    pprint(list(res))
+
 
 if __name__ == '__main__':
     import sys
