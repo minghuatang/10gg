@@ -1,11 +1,12 @@
 import requests
 import json
+from settings import site_settings
 
 HTTP_PREFIX = "http://"
-PD_HOST = "172.16.30.38"
-PD_PORT = "13379"
-TIDB_HOST = "172.16.30.38"
-TIDB_PORT = "10083"
+PD_HOST = site_settings['pd_host']
+PD_PORT = site_settings['pd_port']
+TIDB_HOST = site_settings['tidb_host']
+TIDB_PORT = site_settings['tidb_port']
 PD_REGION_PREFIX = "/pd/api/v1/region/id/"
 TABLE_PREFIX  = "/tables/"
 TIDB_REGION_SUFFIX = "/regions"

@@ -12,7 +12,6 @@ def format_log_level(level):
 def format_log_type(log_type):
     return log_type.lstrip('TI')
 
-
 def format_log_entry(log_entry):
     return '{} {} {}:{} {}'.format(
         log_entry['log_time'],

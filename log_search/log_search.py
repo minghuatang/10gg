@@ -32,7 +32,6 @@ def parse_args(args):
 
     return kw
 
-
 def log_level_str_to_int(level):
     return {
         'd': entry.LOG_DEBUG,
@@ -42,7 +41,6 @@ def log_level_str_to_int(level):
         'f': entry.LOG_FATAL,
         'n': entry.LOG_NULL,
     }[level.lower()[0]]
-
 
 def main(kw):
     input_text = open(kw['input']).read()
@@ -65,7 +63,6 @@ def main(kw):
     format_res = map(formatter.format_log_entry, res)
     for r in format_res:
         print(r)
-
 
 if __name__ == '__main__':
     import sys

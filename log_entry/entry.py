@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# 如何在内存里表示一条log
+import re
 
 SOURCE_TIDB = 'TIDB'
 SOURCE_TIKV = 'TIKV'
@@ -77,6 +77,13 @@ def filter_by_region(log_entries, region):
 def filter_by_store(log_entries, store):
     return filter(lambda e : 'store' in e and e['store'] == store, log_entries)
 
+def filter_by_word(log_entries, word):
+    return filter(lambda e : word in e['content'], log_entries)
+
+def filter_by_pattern(log_entries, pattern):
+    p = re.compile(pattern)
+    return filter(lambda e: p.search(e['content']) is not None, log_entries)
+
 # 如何抽取一部分 log, 大概的接口，具体实现再议
 # 1. 传入filters，按自定义的filter函数过滤
 # 2. 传入字段名称，自己判断
@@ -109,11 +116,10 @@ def filter_log_entries(log_entries, **kw):
     if 'store' in kw:
         res = filter_by_store(res, kw['store'])
 
+    if 'word' in kw:
+        res = filter_by_word(res, kw['word'])
+
+    if 'pattern' in kw:
+        res = filter_by_pattern(res, kw['pattern'])
+
     return res
-
-
-
-
-
-
-
