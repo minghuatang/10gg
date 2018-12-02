@@ -4,6 +4,29 @@ from pprint import pprint
 from log_entry import entry
 from log_entry import parser
 from log_entry import formatter
+from detection import slow_query
+from glob import glob
+
+
+def print_help():
+    help_doc = '''
+    Usage:
+    --input                     log文件
+    --log_type                  log 类型：TIDB/TIKV/PD
+    --datetime-begin            开始时间 'YYYY/MM/DD HH:MM:SS'
+    --datetime-end              结束时间 'YYYY/MM/DD HH:MM:SS'
+    --date-begin                开始日期 'YYYY/MM/DD'
+    --date-end                  结束日期 'YYYY/MM/DD'
+    --tags                      tag1,tag2,...    e.g. SLOW_QUERY
+    --level                     DEBUG/INFO/WARN/ERROR
+    --filename                  源码文件名
+    --region                    TiKV region
+    --store                     TiKV store
+    --word                      按关键字搜索
+    --pattern                   按正则表达式搜索
+    '''
+    print(help_doc)
+
 
 def parse_args(args):
     is_key = lambda x: x.startswith('-') or x.startswith('--')
@@ -42,7 +65,8 @@ def log_level_str_to_int(level):
         'n': entry.LOG_NULL,
     }[level.lower()[0]]
 
-def main(kw):
+
+def search_cli():
     input_text = open(kw['input']).read()
     raw_entries = parser.parse_text(input_text, kw['log_type'])
 
@@ -63,6 +87,31 @@ def main(kw):
     format_res = map(formatter.format_log_entry, res)
     for r in format_res:
         print(r)
+
+def slow_query_cli():
+    kv_input_files = glob(kw['kv-inputs'])
+    db_input_files = glob(kw['db-inputs'])
+
+    # print(kv_input_files, db_input_files)
+
+    kv_logs = [parser.parse_text(open(f).read(), entry.SOURCE_TIKV) for f in kv_input_files]
+    db_logs = [parser.parse_text(open(f).read(), entry.SOURCE_TIDB) for f in db_input_files]
+
+    for db_log in db_logs:
+        for kv_log in kv_logs:
+            res = slow_query.slow_query_detect(db_log, kv_log)
+            print(res)
+
+
+def main(kw):
+    if 'help' in kw:
+        print_help()
+    elif 'input' in kw:
+        search()
+    elif 'kv-inputs' in kw and 'db-inputs' in kw:
+        slow_query_cli()
+    else:
+        print_help_cli()
 
 if __name__ == '__main__':
     import sys
