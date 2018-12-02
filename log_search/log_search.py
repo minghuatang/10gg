@@ -107,11 +107,11 @@ def main(kw):
     if 'help' in kw:
         print_help()
     elif 'input' in kw:
-        search()
+        search_cli()
     elif 'kv-inputs' in kw and 'db-inputs' in kw:
         slow_query_cli()
     else:
-        print_help_cli()
+        print_help()
 
 if __name__ == '__main__':
     import sys
