@@ -5,7 +5,19 @@ import os
 from log_entry import entry
 from log_entry import parser
 
-RE_TIDB_SLOW_QUERY = re.compile(r".*cost_time:(.*)\s+process_time:(.*)\s+backoff_time:([^\s]*).*total_keys:(\d+)\s+processed_keys:(\d+)\s+succ:((?:true|flase))\s+con:(\d+).* txn_start_ts:(\d+)\s+database:(.*) table_ids:\[(\d+)\],sql:(.*)")
+RE_TIDB_SLOW_QUERY = [ 
+re.compile(r".*cost_time:([^\s]*)"),
+re.compile(r".*backoff_time:([^\s]*)"),
+re.compile(r".*process_time:([^\s]*)"),
+re.compile(r".*total_keys:(\d+)"),
+re.compile(r".*processed_keys:(\d+)"),
+re.compile(r".*succ:((?:true|flase))\s+"),
+re.compile(r".*conn:(\d+)"),
+re.compile(r".*txn_start_ts:(\d+)\s+"),
+re.compile(r".*database:([^\s]*)"),
+re.compile(r".*table_id:(\d+)"),
+re.compile(r".*sql:(.*)"),
+]
 
 class SlowQuery(object):
     def __init__(self, logs=None, **args):
@@ -28,6 +40,8 @@ class SlowQuery(object):
         self.attach  = "\n".join(l)
 
     def hit(self):
+        if self.total_keys == "" or self.process_keys == "":
+            return 0
         return float(self.process_keys)/float(self.total_keys)
 
     def status(self):
@@ -62,10 +76,14 @@ class SlowQuery(object):
 
 def take_slow_query_in_tidb(log, addition=None):
     content = log['content'].strip()
-    match = RE_TIDB_SLOW_QUERY.match(content)
-    if match is None:
-       return
-    r = match.groups()
+    r = []
+    for reg in RE_TIDB_SLOW_QUERY:
+        match = reg.match(content)
+        if match is None:
+            r.append("")
+        else:
+            print(match.groups())
+            r.append(match.groups()[0])
     return SlowQuery(**{
         'cost_time': r[0],
         'process_time': r[1],
@@ -89,8 +107,9 @@ def slow_query_detect(tidb_logs, tikv_logs):
             return(res.display())
 
 if __name__ == "__main__":
-    tidb_logs = [r"2018/05/29 16:47:06.810 adapter.go:353: [warning] [SLOW_QUERY] cost_time:17m20.253348972s succ:false connection_id:5281 txn_start_ts:400446609561747458 database:dbmlog table_ids:[57] index_ids:[2] sql:select id, type, number, remain, w_time, order_num, account_type, remark from money_log where account_type='s_money' and userid='359004'",
-                r'2018/12/01 19:07:40.985 adapter.go:390: [warning] [SLOW_QUERY] cost_time:600.339872ms process_time:914ms backoff_time:152ms request_count:3 total_keys:1090763 processed_keys:1000908 succ:true con:478 user:root@192.168.199.181 txn_start_ts:404661852013068325 database:sbtest1 table_ids:[33],sql:select count(*) from sbtest1']
+    tidb_logs = [
+                r'2018/12/01 19:07:40.985 adapter.go:390: [warning] [SLOW_QUERY] cost_time:600.339872ms process_time:914ms backoff_time:152ms request_count:3 total_keys:1090763 processed_keys:1000908 succ:true con:478 user:root@192.168.199.181 txn_start_ts:404661852013068325 database:sbtest1 table_ids:[33],sql:select count(*) from sbtest1',
+                r"2018/05/29 16:47:06.810 adapter.go:353: [warning] [SLOW_QUERY] cost_time:17m20.253348972s succ:false connection_id:5281 txn_start_ts:400446609561747458 database:dbmlog table_ids:[57] index_ids:[2] sql:select id, type, number, remain, w_time, order_num, account_type, remark from money_log where account_type='s_money' and userid='359004'"]
     tikv_logs = [r'2018/11/30 13:24:29.440 INFO apply.rs:953: [region 27] [slow-query] 28 exec ConfChange "AddNode", epoch: conf_ver: 2 version: 12 ts: 404661852013068325',
               r'2018/11/30 13:24:29.440 INFO apply.rs:953: [region 27] [slow-query] 28 exec ConfChange "AddNode", epoch: conf_ver: 2 version: 12 ts: 404661852013068325']
     tidb_text = '\n'.join(tidb_logs)
