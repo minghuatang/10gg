@@ -6,4 +6,5 @@ urls = [
     (r'/log/pull', 'api.LogPullHandler'),
     (r'/log/tips', 'api.LogTipsHandler'),
     (r'/log', 'api.LogFilterHandler'),
+    (r'/metrics/ring', 'api.MetricsRingHandler'),
 ]

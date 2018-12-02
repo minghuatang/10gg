@@ -2,4 +2,7 @@ apps = [
     (r"/api", "api"),
 ]
 
-urls = []
+urls = [
+    (r'/', 'page.IndexHandler'),
+    (r'/log', 'page.IndexHandler'),
+]
