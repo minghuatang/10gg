@@ -4,9 +4,11 @@ import re
 from pprint import pprint
 from log_entry import entry
 
-RE_LOG_SPLIT_PD = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+\.\w+):(\d+): \[(\w+)\]', re.M)
+RE_LOG_SPLIT_PD = re.compile(
+    r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+\.\w+):(\d+): \[(\w+)\]', re.M)
 RE_LOG_SPLIT_TIDB = RE_LOG_SPLIT_PD
-RE_LOG_SPLIT_TIKV = re.compile(r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+) (\w+\.\w+|\<unknown\>):(\d+): ', re.M)
+RE_LOG_SPLIT_TIKV = re.compile(
+    r'^(\d{4}\/\d\d\/\d\d \d\d:\d\d:\d\d\.\d{3}) (\w+) (\w+\.\w+|\<unknown\>):(\d+): ', re.M)
 
 RE_LOG_SPLIT_MAP = {
     entry.SOURCE_PD: RE_LOG_SPLIT_PD,
@@ -36,6 +38,7 @@ RE_LOG_TAG_KV = re.compile(r'(\w+) (\d+)')
 #     log_entry['tags'] = tags
 #     return log_entry
 
+
 def parse_tags(log_entry):
     content = log_entry['content']
     res = RE_LOG_TAG.findall(content)
@@ -44,6 +47,7 @@ def parse_tags(log_entry):
         return raw_tag[1:-2]
 
     tags = []
+
     def parse_tag(raw_tag):
         pruned_tag = prune_raw_tag(raw_tag)
 
@@ -73,6 +77,7 @@ def parse_log_level_pd_or_tidb(level):
         'fatal':   entry.LOG_FATAL,
     }[level]
 
+
 def parse_log_level_tikv(level):
     return {
         'DEBU': entry.LOG_DEBUG,
@@ -81,6 +86,7 @@ def parse_log_level_tikv(level):
         'ERRO': entry.LOG_ERROR,
         'FATA': entry.LOG_FATAL,
     }[level]
+
 
 def parse_text_pd_or_tidb(text, log_type):
     RE_LOG_SPLIT = RE_LOG_SPLIT_MAP[log_type]
@@ -101,6 +107,7 @@ def parse_text_pd_or_tidb(text, log_type):
 
     return log_entries
 
+
 def parse_text_tikv(text, log_type=entry.SOURCE_TIKV):
     RE_LOG_SPLIT = RE_LOG_SPLIT_MAP[log_type]
     text_splits = RE_LOG_SPLIT.split(text)
@@ -114,11 +121,12 @@ def parse_text_tikv(text, log_type=entry.SOURCE_TIKV):
             'log_level': parse_log_level_tikv(text_splits[index+1]),
             'file_name': text_splits[index+2],
             'file_line': text_splits[index+3],
-            'content':   text_splits[index+4].strip(),
+            'content':   '<'+text_splits[index+2]+'> '+text_splits[index+4].strip(),
         })
         index += 5
 
     return log_entries
+
 
 def parse_text(text, log_type):
     log_entries = {
@@ -130,6 +138,7 @@ def parse_text(text, log_type):
     log_entries = map(parse_tags, log_entries)
 
     return log_entries
+
 
 if __name__ == '__main__':
     import sys

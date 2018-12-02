@@ -56,7 +56,8 @@ class SlowQuery(object):
     def rewrite(self):
         p1 = subprocess.Popen(["echo", self.sql], stdout=subprocess.PIPE)
         p2 = subprocess.Popen([os.path.join(os.path.dirname(__file__),'../bin/soar')],stdin=p1.stdout, stdout = subprocess.PIPE)
-        return(p2.communicate()[0].decode('utf-8'))
+        res = p2.communicate()[0].decode('utf-8')
+        return res
 
 
     def display(self):
@@ -70,7 +71,7 @@ class SlowQuery(object):
             "hit" : format(self.hit(),".2%"),
             "report": self.suggestion(),
             "relative_logs": self.attach,
-            "rewrite": self.rewrite(),
+            "rewrite": self.rewrite().strip().replace('\n', ' '),
         }, ensure_ascii=False)
 
 
@@ -101,10 +102,12 @@ def take_slow_query_in_tidb(log, addition=None):
 def slow_query_detect(tidb_logs, tikv_logs):
     tidb_slow = entry.filter_by_word(tidb_logs, "SLOW_QUERY")
     tikv_slow = entry.filter_by_word(tikv_logs,entry.TIKV_SLOW_QUERY)
+    resp = []
     for log in tidb_slow:
         res =take_slow_query_in_tidb(log, tikv_slow)
         if res is not None:
-            return(res.display())
+            resp.append(res.display())
+    return json.dumps(resp)
 
 if __name__ == "__main__":
     tidb_logs = [
